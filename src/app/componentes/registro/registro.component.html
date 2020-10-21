@@ -1,0 +1,67 @@
+<div class="text-center p-2 registro mt-5">
+    <img src="../../../assets/icon/clinica-icon.png" alt="" class="img">
+    <form action="" method="" class="mx-4">
+      <!-- <h2 class="text-center">Ingresar</h2> -->
+      <div class="form-row ">
+        <div class="col m-3">
+          <input type="text" class="form-control" placeholder="Nombre" required="required" name="nombre" [(ngModel)]="nombre">
+        </div>
+        <div class="col m-3">
+          <input type="text" class="form-control" placeholder="Apellido" required="required" name="apellido" [(ngModel)]="apellido">
+        </div>
+      </div>
+
+      <div class="form-group m-3">
+        <input type="email" class="form-control" placeholder="Correo electronico" required="required" name="correo" [(ngModel)]="correo">
+      </div>
+
+      <div class="form-row">
+        <div class="col m-3">
+          <input type="password" class="form-control" placeholder="Contraseña" required="required" name="password" [(ngModel)]="password">
+        </div>
+        <div class="col m-3">
+          <input type="password" class="form-control" placeholder="Repetir contraseña" required="required" name="repetirPassword" [(ngModel)]="repetirPassword">
+        </div>
+      </div>
+      
+
+      <div class="form-group m-3">
+        <select [(ngModel)]="perfil" class="form-control" name="perfil">
+          <option [ngValue]="null" [disabled]="true" >Seleccione un tipo de perfil</option>
+          <option value="paciente">Paciente</option>
+          <option value="profesional">Profesional</option>
+        </select>
+      </div>
+
+      <div class="form-group m-3" *ngIf="perfil == 'profesional'">
+        <label>Especialidades: </label>
+        <br>
+        <div class="form-check form-check-inline" *ngFor="let especialidad of listaEspecialidades ">
+          <input class="form-check-input" type="checkbox" value={{especialidad.nombre}}>
+          <label class="form-check-label" for="inlineCheckbox1">{{especialidad.nombre}}</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" >
+          <label class="form-check-label" for="inlineCheckbox1">Otros</label>
+        </div>
+      </div>
+
+      <div class="form-group m-3">
+        <label>Fotos de perfil</label>
+        <input type="file" class="form-control-file m-3" name="fotoUno" [(ngModel)]="fotoUno">
+        <input type="file" class="form-control-file m-3" name="fotoDos" [(ngModel)]="fotoDos">
+      </div>
+
+      <div class="form-group m-3">
+        <button type="submit" class="btn btn-primary btn-block" (click)="Register()">Registrarse</button>
+        <p>{{mensaje}}</p>
+      </div>
+      <!-- <div class="form-group m-3">
+        <a href="" class="">Recuperar contraseña</a>
+      </div> -->
+    </form>
+    <p class="text-center"><a (click)="cambiarEstadoRegistro(true)">Ya estas registrado? Ingresa</a></p>
+  </div>
+  
+  
+  

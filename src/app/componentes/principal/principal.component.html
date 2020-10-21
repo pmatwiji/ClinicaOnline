@@ -1,0 +1,10 @@
+<app-navbar></app-navbar>
+<section>
+  <div class="background">
+    <app-login class="col-md-4" [@moverLogin]="estadoLogin ? true : false" (cambiarEstadoLoginEvent)="cambiarEstadoLogin($event)"></app-login>
+    <app-registro class="col-md-4" 
+    [@moverIzqRegistro]="estadoRegistro ? true : false" 
+    (cambiarEstadoRegistroEvent)="cambiarEstadoRegistro($event)"
+    [listaEspecialidades]="inputEspecialidades"></app-registro>
+  </div>
+</section>

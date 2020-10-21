@@ -1,0 +1,32 @@
+<div class="text-center p-2 login">
+  <img src="../../../assets/icon/clinica-icon.png" alt="" class="img">
+  <form action="" method="" class="mx-4">
+    <!-- <h2 class="text-center">Ingresar</h2> -->
+    <div class="form-group m-3">
+      <input type="email" class="form-control" placeholder="Correo electronico" required="required" name="correo" [(ngModel)]="correo">
+    </div>
+    <div class="form-group m-3">
+      <input type="password" class="form-control" placeholder="Contraseña" required="required" name="password" [(ngModel)]="password">
+    </div>
+    <div class="form-group m-3">
+      <button type="submit" class="btn btn-primary btn-block" (click)="Login()">Ingresar</button>
+      <p class="my-3">{{mensaje}}</p>
+      <p *ngIf="mensaje === 'Falta verificar el correo electronico' ">Desea reenviar el mail de confirmacion? <a (click)="resendMail()">Click aqui</a></p>
+    </div>
+
+    <div class="form-group m-3">
+      <select [(ngModel)]="inicioRapido" class="form-control" name="inicioRapido" (change)="seleccionarInicioRapido()">
+        <option [ngValue]="null" [disabled]="true" >Seleccione una cuenta para inicio rapido</option>
+        <option value="admin">Admin</option>
+        <option value="paciente">Paciente</option>
+        <option value="profesional">Profesional</option>
+      </select>
+    </div>
+    <!-- <div class="form-group m-3">
+      <a href="" class="">Recuperar contraseña</a>
+    </div> -->
+  </form>
+  <p class="text-center"><a (click)="cambiarEstadoLogin(true)">Registrarse</a></p>
+</div>
+
+

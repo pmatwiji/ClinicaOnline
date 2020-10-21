@@ -1,0 +1,24 @@
+<app-navbar class="mb-5"></app-navbar>
+
+<div class="card mt-5 p-5" >
+    <div class="card-body">
+      <h3 class="card-title text-center">Gracias por registrarse!</h3>
+      <div class="form-group mt-2">
+        <p class="text-center">
+           Hemos enviado un correo de verificacion a la siguiente direccion: <strong>{{ userMail }}</strong>
+        </p>
+        <p class="text-center">
+          Por favor, chequee su correo y clickee en el enlace para verificar su cuenta.
+        </p>
+      </div>
+      <div class="form-group text-center mt-5">
+        <button class="btn btn-primary" (click)="resendMail()">
+          Reenviar correo de verificacion
+        </button>
+        <p>{{mensaje}}</p>
+        <button class="btn btn-primary" (click)="backHome()">
+          Volver a la pagina principal
+        </button>
+      </div>
+    </div>
+  </div>
