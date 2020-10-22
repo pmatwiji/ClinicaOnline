@@ -22,9 +22,12 @@ export class RegistroComponent implements OnInit {
   password:string;
   repetirPassword:string;
   perfil:string = null;
-  especialidad:any;
+  especialidad:string = null;
+  nuevaEspecialidad:string;
   fotoUno:string;
   fotoDos:string;
+
+  especialidadesUpload=[];
 
   mensaje:string;
 
@@ -81,5 +84,37 @@ export class RegistroComponent implements OnInit {
       }
     }
   }
+
+  agregarEspecialidad(){
+    if(this.especialidad == 'otros'){
+      if (this.nuevaEspecialidad != '' && this.nuevaEspecialidad != null && !this.chequearRepetido(this.nuevaEspecialidad)) {
+        this.especialidadesUpload.push(this.nuevaEspecialidad);
+      } else {
+        alert("repetido");
+      }
+      
+    } else{
+      if(this.especialidad != '' && this.especialidad != null && !this.chequearRepetido(this.especialidad)){
+        this.especialidadesUpload.push(this.especialidad);
+      } else {
+        alert("repetido");
+      }
+      
+    }
+    
+  }
+
+  chequearRepetido(especialidad:any):boolean{
+    let retorno = false;
+    this.especialidadesUpload.forEach(element => {
+      if(especialidad == element){
+        retorno = true;
+      }
+    });
+
+    return retorno;
+  }
+
+
 
 }

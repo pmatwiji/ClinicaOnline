@@ -28,6 +28,7 @@
     "bootstrap": "^4.5.2",
     "express": "^4.17.1",
     "firebase": "^7.22.1",
+    "ngx-chips": "^2.2.1",
     "path": "^0.12.7",
     "rxjs": "~6.6.3",
     "tslib": "^2.0.0",
