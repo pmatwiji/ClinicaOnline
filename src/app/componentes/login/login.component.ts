@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AuthService } from "../../servicios/auth.service";
 import { Router } from '@angular/router';
-
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
 
   inicioRapido:any = null;
 
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(private router: Router, private authService: AuthService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
   }
@@ -31,22 +31,19 @@ export class LoginComponent implements OnInit {
   }
 
    Login() {
-    try{
     this.authService.login(this.correo, this.password).then((response:any) => {
-      if(this.verificarHardcodeo){
+      alert(response.user.emailVerified);
+      if(response.user.emailVerified == true){
         this.router.navigate(['/test']);
       } else {
-          if(response.user.emailVerified){
+        if(this.verificarHardcodeo()){
           this.router.navigate(['/test']);
         } else {
           this.mensaje = "Falta verificar el correo electronico";
+          this.toastr.error(this.mensaje,'Error');
         }
       }
-    }).catch(error => this.mensaje = error);
-      
-    }catch(error){
-      this.mensaje = error;
-    }
+    }).catch(error => this.toastr.error(error,'Error') );
   }
 
   resendMail(){

@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from "../../servicios/auth.service";
 import { FirebaseService } from "../../servicios/firebase.service";
+import { ToastrService } from 'ngx-toastr';
 
 import { Router } from '@angular/router';
 
@@ -34,7 +35,7 @@ export class RegistroComponent implements OnInit {
   // especialidades: Observable<any[]>;
   // listaEspecialidades: any;
 
-  constructor(private authService: AuthService,private router: Router,private firebaseService: FirebaseService) { }
+  constructor(private authService: AuthService,private router: Router,private firebaseService: FirebaseService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     //this.firebaseService.traerColeccion('especialidades').then(datos=>this.listaEspecialidades =datos)
@@ -63,6 +64,7 @@ export class RegistroComponent implements OnInit {
         (this.apellido == null || this.apellido == "") ||
         (this.perfil == null || this.perfil == "" ) ){
       this.mensaje = "Faltan datos, por favor, complete todos los campos";
+      this.toastr.error(this.mensaje,'Error');
     }
     else {
 
@@ -76,28 +78,37 @@ export class RegistroComponent implements OnInit {
             this.router.navigate(['/verificacion-mail']);
           });
 
-        }).catch(error => this.mensaje = error);
+        }).catch(error => this.toastr.error(error,'Error'));
         
         
       } else {
         this.mensaje = "Las contraseñas no son iguales";
+        this.toastr.error(this.mensaje,'Error');
       }
     }
   }
 
   agregarEspecialidad(){
     if(this.especialidad == 'otros'){
-      if (this.nuevaEspecialidad != '' && this.nuevaEspecialidad != null && !this.chequearRepetido(this.nuevaEspecialidad)) {
+      if (this.nuevaEspecialidad == '' || this.nuevaEspecialidad == null){
+        this.mensaje = "Debe completar el campo de especialidad";
+        this.toastr.error(this.mensaje,'Error');
+      } else if (!this.chequearRepetido(this.nuevaEspecialidad)) {
         this.especialidadesUpload.push(this.nuevaEspecialidad);
       } else {
-        alert("repetido");
+        this.mensaje = "Especialidad repetida";
+        this.toastr.error(this.mensaje,'Error');
       }
       
     } else{
-      if(this.especialidad != '' && this.especialidad != null && !this.chequearRepetido(this.especialidad)){
+      if(this.especialidad == '' || this.especialidad == null){
+        this.mensaje = "Debe completar el campo de especialidad";
+        this.toastr.error(this.mensaje,'Error');
+      } else if(!this.chequearRepetido(this.especialidad)){
         this.especialidadesUpload.push(this.especialidad);
       } else {
-        alert("repetido");
+        this.mensaje = "Especialidad repetida";
+        this.toastr.error(this.mensaje,'Error');
       }
       
     }
