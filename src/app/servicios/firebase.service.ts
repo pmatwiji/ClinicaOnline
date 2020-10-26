@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 
 @Injectable({
@@ -8,7 +8,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class FirebaseService {
 
-  constructor(private db: AngularFireDatabase, private firestore: AngularFirestore) { }
+  constructor(private firestore: AngularFirestore,private storage: AngularFireStorage) { }
 
   traerColeccion(coleccion:string){
     return new Promise((resolve,reject) => {
@@ -19,5 +19,17 @@ export class FirebaseService {
 
   traerColeccionPorEstado(coleccion:string){
     return this.firestore.collection(coleccion, ref => ref.where('activo','==',true)).valueChanges();
+  }
+
+  agregarUsuario(documento:string,data:any){
+    this.firestore.collection('usuarios').doc(documento).set(data);
+  }
+
+  subirAvatar(mail:string,numero:any,archivo:any,metadata:any){
+    this.storage.upload(`/usuarios/${mail}/${numero}`,archivo,metadata);
+  }
+
+  agregarEspecialidad(documento:string,especialidad:string){
+    this.firestore.collection('especialidades').doc(documento).set({nombre: especialidad});
   }
 }

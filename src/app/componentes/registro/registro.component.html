@@ -65,12 +65,12 @@
 
       <div class="form-group m-3">
         <label>Fotos de perfil</label>
-        <input type="file" class="form-control-file m-3" name="fotoUno" [(ngModel)]="fotoUno">
-        <input type="file" class="form-control-file m-3" name="fotoDos" [(ngModel)]="fotoDos">
+        <input type="file" class="form-control-file m-3" name="fotoUno" accept=".png,.jpg" (change)="valueFotos($event,1)">
+        <input type="file" class="form-control-file m-3" name="fotoDos" accept=".png,.jpg" (change)="valueFotos($event,2)">
       </div>
 
       <div class="form-group m-3">
-        <button type="submit" class="btn btn-primary btn-block" (click)="Register()">Registrarse</button>
+        <button type="submit" class="btn btn-primary btn-block" (click)="open(content)">Registrarse</button>
         <!-- <p>{{mensaje}}</p> -->
       </div>
       <!-- <div class="form-group m-3">
@@ -80,5 +80,28 @@
     <p class="text-center"><a (click)="cambiarEstadoRegistro(true)">Ya estas registrado? Ingresa</a></p>
   </div>
   
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Captcha</h4>
+      <button type="button" class="close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <label for="resultado">{{primerNumero}} + {{segundoNumero}}</label>
+        </div>
+        <div class="form-group">
+          <label for="resultado">Resultado</label>
+          <input type="text" class="form-control" required="required" name="resultadoUser" [(ngModel)]="resultadoUser">
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="verificarCaptha()">Enviar</button>
+    </div>
+  </ng-template>
   
   
