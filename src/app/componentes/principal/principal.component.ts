@@ -1,6 +1,7 @@
 import { animate, state, transition, trigger, style } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 
+import { AuthService } from 'src/app/servicios/auth.service';
 import { FirebaseService } from "../../servicios/firebase.service";
 
 
@@ -33,10 +34,11 @@ export class PrincipalComponent implements OnInit {
 
   inputEspecialidades:any;
 
-  constructor(private firebaseService: FirebaseService) { }
+  constructor(private firebaseService: FirebaseService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.firebaseService.traerColeccion('especialidades').then(datos=>this.inputEspecialidades = datos)
+    this.authService.logOutCurrentUser();
   }
 
   cambiarEstadoLogin(estadoLogin:boolean){

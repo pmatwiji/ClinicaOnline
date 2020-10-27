@@ -18,6 +18,8 @@ import { RegistroComponent } from './componentes/registro/registro.component';
 import { TurnosComponent } from './componentes/turnos/turnos.component';
 import { VerificacionMailComponent } from './componentes/verificacion-mail/verificacion-mail.component';
 import { NavbarComponent } from './componentes/navbar/navbar.component';
+import { HomeComponent } from './componentes/home/home.component';
+import { HorariosProfesionalComponent } from './componentes/horarios-profesional/horarios-profesional.component';
 
 
 @NgModule({
@@ -28,7 +30,9 @@ import { NavbarComponent } from './componentes/navbar/navbar.component';
     RegistroComponent,
     TurnosComponent,
     VerificacionMailComponent,
-    NavbarComponent
+    NavbarComponent,
+    HomeComponent,
+    HorariosProfesionalComponent
   ],
   imports: [
     BrowserModule,

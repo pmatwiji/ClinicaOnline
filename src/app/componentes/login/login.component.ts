@@ -32,12 +32,12 @@ export class LoginComponent implements OnInit {
 
    Login() {
     this.authService.login(this.correo, this.password).then((response:any) => {
-      alert(response.user.emailVerified);
+      //alert(response.user.emailVerified);
       if(response.user.emailVerified == true){
-        this.router.navigate(['/test']);
+        this.router.navigate(['/home']);
       } else {
         if(this.verificarHardcodeo()){
-          this.router.navigate(['/test']);
+          this.router.navigate(['/home']);
         } else {
           this.mensaje = "Falta verificar el correo electronico";
           this.toastr.error(this.mensaje,'Error');
