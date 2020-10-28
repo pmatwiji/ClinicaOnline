@@ -1,0 +1,63 @@
+<div class="container ">
+  <div class="row d-flex justify-content-center">
+
+    <div class="card text-white bg-info m-3" style="max-width: 18rem;" *ngFor="let turno of turnos"
+      [ngClass]="{'bg-info': turno.estado=='pendiente','bg-danger': turno.estado == 'cancelado','bg-success': turno.estado == 'aceptado'}">
+      <div class="card-header text-center"><span class="font-weight-bold">Paciente: </span>{{turno.paciente}}</div>
+      <div class="card-body">
+        <p class="card-text"><span class="font-weight-bold">Estado: </span>{{turno.estado}}</p>
+        <p class="card-text"><span class="font-weight-bold">Especialista: </span>{{turno.especialista}}</p>
+        <p class="card-text"><span class="font-weight-bold">Especialidad: </span>{{turno.especialidad}}</p>
+        <p class="card-text"><span class="font-weight-bold">Fecha: </span>{{turno.fecha}} {{turno.hora}}</p>
+
+        <div class="form-group m-3 d-flex justify-content-center">
+          <!-- <button type="button" class="btn btn-light mr-1" (click)="open(content)">Detalles</button> -->
+          <button type="button" class="btn btn-light ml-1" [disabled]="turno.estado == 'cancelado'">Cancelar</button>
+        </div>
+
+      </div>
+
+      <!-- <ng-template #content let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Detalles</h4>
+          <button type="button" class="close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>{{turno.comentario}}</p>
+        </div>
+
+        <button type="button" class="btn btn-primary mx-5 mb-3" (click)="isCollapsed = !isCollapsed"
+          [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+          Encuesta
+        </button>
+
+        <div id="collapseExample" [ngbCollapse]="isCollapsed">
+          <div class="container mt-3">
+            <form>
+                <div class="form-group">
+                    <label for="">Puntaje</label>
+                    <br>
+                    <ngb-rating [(rate)]="currentRate"></ngb-rating>
+                </div>
+              <div class="form-group">
+                <label for="comentario">Comentario</label>
+                <textarea class="form-control" id="comentario" rows="3" required></textarea>
+              </div>
+
+
+            </form>
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-success ">Enviar</button>
+          <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss()">Cerrar</button>
+        </div>
+      </ng-template> -->
+
+    </div>
+
+  </div>

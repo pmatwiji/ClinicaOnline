@@ -17,6 +17,8 @@ export class HomeComponent implements OnInit {
 
   compSeleccionado:string;
 
+  public isCollapsed = true;
+
   constructor(private firebaseService: FirebaseService, private authService: AuthService, private router: Router) {
     this.authService.getCurrentUser().then((response:any) => {
       this.mailUser = response.email;
@@ -24,7 +26,7 @@ export class HomeComponent implements OnInit {
       this.firebaseService.traerUserPorMail(this.mailUser).then((datos) => {
         this.currentUser = datos;
         //console.log(this.currentUser)
-        this.compSeleccionado = this.currentUser[0].perfil == 'profesional' ? 'Turnos' : this.currentUser[0].perfil == 'paciente' ? 'Sacar turno' : '';
+        this.compSeleccionado = this.currentUser[0].perfil == 'profesional' ? 'Turnos' : this.currentUser[0].perfil == 'paciente' ? 'Sacar turno' : this.currentUser[0].perfil == 'admin' ? 'Habilitar profesional' : 'Error';
       }).catch((error :any) => console.log(error));
       
     }).catch((error :any) => console.log(error)); 

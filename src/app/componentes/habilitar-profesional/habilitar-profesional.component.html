@@ -1,0 +1,20 @@
+<div class="container">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">Especialidad</th>
+        <th scope="col">Accion</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let doctor of doctores">
+        <td>
+          {{ doctor.nombre }} {{doctor.apellido}}
+        </td>
+        <td>{{ doctor.especialidad  }}</td>
+        <td><button type="button" class="btn btn-success">Aceptar</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

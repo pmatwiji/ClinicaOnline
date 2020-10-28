@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 
+
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
@@ -21,6 +22,11 @@ import { NavbarComponent } from './componentes/navbar/navbar.component';
 import { HomeComponent } from './componentes/home/home.component';
 import { HorariosProfesionalComponent } from './componentes/horarios-profesional/horarios-profesional.component';
 import { AtenderTurnosComponent } from './componentes/atender-turnos/atender-turnos.component';
+import { SacarTurnoComponent } from './componentes/sacar-turno/sacar-turno.component';
+import { ProximosTurnosComponent } from './componentes/proximos-turnos/proximos-turnos.component';
+import { HistorialTurnosComponent } from './componentes/historial-turnos/historial-turnos.component';
+import { HabilitarProfesionalComponent } from './componentes/habilitar-profesional/habilitar-profesional.component';
+import { AltaAdminComponent } from './componentes/alta-admin/alta-admin.component';
 
 
 @NgModule({
@@ -34,7 +40,12 @@ import { AtenderTurnosComponent } from './componentes/atender-turnos/atender-tur
     NavbarComponent,
     HomeComponent,
     HorariosProfesionalComponent,
-    AtenderTurnosComponent
+    AtenderTurnosComponent,
+    SacarTurnoComponent,
+    ProximosTurnosComponent,
+    HistorialTurnosComponent,
+    HabilitarProfesionalComponent,
+    AltaAdminComponent
   ],
   imports: [
     BrowserModule,
@@ -45,6 +56,7 @@ import { AtenderTurnosComponent } from './componentes/atender-turnos/atender-tur
     AngularFirestoreModule,
     AngularFireStorageModule,
     FormsModule,
+    ReactiveFormsModule,
     ToastrModule.forRoot({
       timeOut: 2000,
       positionClass: 'toast-bottom-center',
