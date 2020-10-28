@@ -15,7 +15,7 @@ export class CheckLoginGuard implements CanActivate {
     return this.authService.AFauth.authState.pipe(
       map( user => {
         if(!user) {
-          this.router.navigate(['/principal']);
+          this.router.navigate(['/']);
           return false;
         }
         return true;

@@ -38,6 +38,7 @@ export class PrincipalComponent implements OnInit {
 
   ngOnInit(): void {
     this.firebaseService.traerColeccion('especialidades').then(datos=>this.inputEspecialidades = datos)
+    //console.log(this.inputEspecialidades)
     this.authService.logOutCurrentUser();
   }
 

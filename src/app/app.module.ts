@@ -20,6 +20,7 @@ import { VerificacionMailComponent } from './componentes/verificacion-mail/verif
 import { NavbarComponent } from './componentes/navbar/navbar.component';
 import { HomeComponent } from './componentes/home/home.component';
 import { HorariosProfesionalComponent } from './componentes/horarios-profesional/horarios-profesional.component';
+import { AtenderTurnosComponent } from './componentes/atender-turnos/atender-turnos.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { HorariosProfesionalComponent } from './componentes/horarios-profesional
     VerificacionMailComponent,
     NavbarComponent,
     HomeComponent,
-    HorariosProfesionalComponent
+    HorariosProfesionalComponent,
+    AtenderTurnosComponent
   ],
   imports: [
     BrowserModule,

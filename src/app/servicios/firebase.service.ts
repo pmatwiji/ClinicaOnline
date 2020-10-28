@@ -32,4 +32,15 @@ export class FirebaseService {
   agregarEspecialidad(documento:string,especialidad:string){
     this.firestore.collection('especialidades').doc(documento).set({nombre: especialidad});
   }
+
+  traerUserPorMail(email:string){
+    return  new Promise((resolve,reject) => {
+      this.firestore.collection('usuarios', ref => {return ref.where('email','==',email)}).valueChanges()
+      .subscribe((datos:any) => {
+        resolve(datos);
+       },error => reject(error));
+    })
+  }
+
+
 }
