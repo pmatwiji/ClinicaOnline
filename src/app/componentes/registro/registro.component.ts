@@ -6,6 +6,8 @@ import { ToastrService } from 'ngx-toastr';
 
 import { Router } from '@angular/router';
 
+import {storage} from 'firebase'
+
 
 @Component({
   selector: 'app-registro',
@@ -28,9 +30,9 @@ export class RegistroComponent implements OnInit {
   especialidad:string = null;
   nuevaEspecialidad:string = '';
   fotoUno:any = null;
-  pathfotoUno = '/avatar-default.png';
+  pathfotoUno:string = '';
   fotoDos:any = null;
-  pathfotoDos = '/avatar-default.png';
+  pathfotoDos: string = '';
 
   especialidadesUpload=[];
 
@@ -98,18 +100,48 @@ export class RegistroComponent implements OnInit {
 
       if (this.password == this.repetirPassword) {
 
-         if(this.fotoUno != null){
-          this.pathfotoUno = `/usuarios/${this.correo}/1`;
-        }
+            let refUno = storage().ref(`/usuarios/${this.correo}/1`);
+            let refDos = storage().ref(`/usuarios/${this.correo}/2`);
 
-        if(this.fotoDos != null){
-          this.pathfotoDos = `/usuarios/${this.correo}/2`;
-        }
 
-        
-        
+            let metadataUno = {
+              customMetadata: {
+                'user': this.correo,
+                'numAvatar': '1'
+              }
+            }
+
+            let metadataDos = {
+              customMetadata: {
+                'user': this.correo,
+                'numAvatar': '2'
+              }
+            }
+
+            if(this.fotoUno != null){
+              refUno.put(this.fotoUno).then( a => {
+                a.ref.getDownloadURL().then((path) => {
+                  this.pathfotoUno= path
+                })
+                
+              })
+            } else {
+              this.pathfotoUno = 'https://firebasestorage.googleapis.com/v0/b/clinicaonline-e95c7.appspot.com/o/avatar-default.png?alt=media&token=4be91ff3-613e-4410-ac37-2d4a3b46d9eb';
+            }
+
+            if(this.fotoDos != null){
+              refDos.put(this.fotoDos).then( a => {
+                a.ref.getDownloadURL().then((path) => {
+                  this.pathfotoDos= path
+                })
+                
+              })
+            } else {
+              this.pathfotoDos = 'https://firebasestorage.googleapis.com/v0/b/clinicaonline-e95c7.appspot.com/o/avatar-default.png?alt=media&token=4be91ff3-613e-4410-ac37-2d4a3b46d9eb';
+            }
+
         this.authService.register(this.correo, this.password).then(response => {
-          
+
           if(this.perfil == 'paciente'){
 
             let datosUsuario={
@@ -121,8 +153,9 @@ export class RegistroComponent implements OnInit {
               fotoDos: this.pathfotoDos,
             }
 
-            this.verificarFotosVacias(response.user.email)
+            
             this.firebaseService.agregarUsuario(response.user.email,datosUsuario);
+            
           } else {
 
             let datosProfesional={
@@ -136,9 +169,6 @@ export class RegistroComponent implements OnInit {
               habilitado: false
             }
 
-            // this.firebaseService.subirAvatar(response.user.email,1,this.fotoUno,{user: response.user.email, numAvatar: 1})
-            // this.firebaseService.subirAvatar(response.user.email,2,this.fotoDos,{user: response.user.email, numAvatar: 2})
-            this.verificarFotosVacias(response.user.email)
             this.firebaseService.agregarUsuario(response.user.email,datosProfesional);
           }
 
@@ -204,15 +234,5 @@ export class RegistroComponent implements OnInit {
       console.log(this.fotoDos);
     }
   }
-
-  verificarFotosVacias(mail:string){
-    if(this.fotoUno != null){
-      this.firebaseService.subirAvatar(mail,1,this.fotoUno,{user: mail, numAvatar: 1})
-    }
-    if(this.fotoDos != null){
-      this.firebaseService.subirAvatar(mail,2,this.fotoDos,{user: mail, numAvatar: 2})
-    }
-  }
-
 
 }

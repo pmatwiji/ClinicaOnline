@@ -8,13 +8,18 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let doctor of doctores">
+      
+      <p *ngIf="profesionalesSinHabilitar.length == 0" class="text-center font-weight-bold">No hay profesional pendientes de habilitacion</p>
+      
+      <tr *ngFor="let profesional of profesionalesSinHabilitar">
         <td>
-          {{ doctor.nombre }} {{doctor.apellido}}
+          {{ profesional.nombre }} {{profesional.apellido}}
         </td>
-        <td>{{ doctor.especialidad  }}</td>
-        <td><button type="button" class="btn btn-success">Aceptar</button></td>
+        <td>{{ profesional.especialidades  }}</td>
+        <td><button type="button" class="btn btn-success" (click)="habilitarProfesional(profesional.email)">Aceptar</button></td>
       </tr>
+
+      
     </tbody>
   </table>
 </div>

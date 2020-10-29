@@ -51,7 +51,7 @@
       <h1 class="mt-4 text-center">{{compSeleccionado}}</h1>
 
       <app-turnos *ngIf="compSeleccionado == 'Turnos' && currentUser[0].perfil == 'profesional'"></app-turnos>
-      <app-horarios-profesional *ngIf="compSeleccionado == 'Horarios' && currentUser[0].perfil == 'profesional'"></app-horarios-profesional>
+      <app-horarios-profesional [mail]="mailUser" *ngIf="compSeleccionado == 'Horarios' && currentUser[0].perfil == 'profesional'"></app-horarios-profesional>
       <app-atender-turnos *ngIf="compSeleccionado == 'Atender turnos' && currentUser[0].perfil == 'profesional'"></app-atender-turnos>
 
       <app-sacar-turno *ngIf="compSeleccionado == 'Sacar turno' && currentUser[0].perfil == 'paciente'"></app-sacar-turno>

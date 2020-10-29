@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
-
+//import {storage} from 'firebase'
 
 @Injectable({
   providedIn: 'root'
@@ -25,10 +25,6 @@ export class FirebaseService {
     this.firestore.collection('usuarios').doc(documento).set(data);
   }
 
-  subirAvatar(mail:string,numero:any,archivo:any,metadata:any){
-    this.storage.upload(`/usuarios/${mail}/${numero}`,archivo,metadata);
-  }
-
   agregarEspecialidad(documento:string,especialidad:string){
     this.firestore.collection('especialidades').doc(documento).set({nombre: especialidad});
   }
@@ -41,6 +37,35 @@ export class FirebaseService {
        },error => reject(error));
     })
   }
+
+  traerProfesionalesNoHabilitados(){
+    return  new Promise((resolve,reject) => {
+      this.firestore.collection('usuarios', ref => {return ref.where('habilitado','==',false)}).valueChanges()
+      .subscribe((datos:any) => {
+        resolve(datos);
+       },error => reject(error));
+    })
+  }
+
+  traerProfesionalesHabilitadosPorEspecialidad(especialidad){
+    return  new Promise((resolve,reject) => {
+      this.firestore.collection('usuarios', ref => {return ref.where('habilitado','==',true).where('especialidades','array-contains',especialidad)}).valueChanges()
+      .subscribe((datos:any) => {
+        resolve(datos);
+       },error => reject(error));
+    })
+  }
+
+  habilitarProfesional(documento){
+    this.firestore.collection('usuarios').doc(documento).update({habilitado: true});
+  }
+
+  agregarHorarios(documento,dias,horario){
+    this.firestore.collection('usuarios').doc(documento).update({horario: horario, dias: dias});
+  }
+
+  
+
 
 
 }

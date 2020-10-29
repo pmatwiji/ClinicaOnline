@@ -56,10 +56,10 @@ export class AltaAdminComponent implements OnInit {
 
   verificarFotosVacias(mail:string){
     if(this.fotoUno != null){
-      this.firebaseService.subirAvatar(mail,1,this.fotoUno,{user: mail, numAvatar: 1})
+      //this.firebaseService.subirAvatar(mail,1,this.fotoUno,{user: mail, numAvatar: 1})
     }
     if(this.fotoDos != null){
-      this.firebaseService.subirAvatar(mail,2,this.fotoDos,{user: mail, numAvatar: 2})
+      //this.firebaseService.subirAvatar(mail,2,this.fotoDos,{user: mail, numAvatar: 2})
     }
   }
 
