@@ -29,6 +29,10 @@ export class FirebaseService {
     this.firestore.collection('especialidades').doc(documento).set({nombre: especialidad});
   }
 
+  agregarTurno(documento:string,data:any){
+    this.firestore.collection('turnos').doc(documento).set(data);
+  }
+
   traerUserPorMail(email:string){
     return  new Promise((resolve,reject) => {
       this.firestore.collection('usuarios', ref => {return ref.where('email','==',email)}).valueChanges()
