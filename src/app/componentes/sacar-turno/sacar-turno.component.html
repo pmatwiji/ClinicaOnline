@@ -1,45 +1,31 @@
-<div class="container">
-  <form>
-    <div class="form-group">
-      <label for="especialidad">Especialidad</label>
-      <select class="form-control" id="especialidad" [(ngModel)]="especialidadSeleccionada" name="especialidadSeleccionada"
-        (change)="traerListadoProfesionales(especialidadSeleccionada)">
-        <option [ngValue]="null" [disabled]="true">Seleccione especialidad</option>
-        <option value={{especialidad.nombre}} *ngFor="let especialidad of listaEspecialidades">{{especialidad.nombre}}
-        </option>
-      </select>
-    </div>
+<div class="container-fluid mt-5">
+    <div class="row">
+      <div class="col-4">
+        <h3 class="font-weight-bold mb-3">Especialidades</h3>
+        <app-lista-especialidad (seleccionarEspecialidadEvent)="traerEspecialidadSeleccionada($event)"></app-lista-especialidad>
 
+        <!-- <p>{{especialidadSeleccionada}}</p> -->
+      </div>
+      
 
+      <div class="col-4" *ngIf="especialidadSeleccionada">
+        <h3 class="font-weight-bold mb-3">Profesionales</h3>
+        <app-lista-profesionales [especialidadSeleccionadaInput]="especialidadSeleccionada"
+        (seleccionarProfesionalEvent)="traerProfesionalSeleccionado($event)"></app-lista-profesionales>
 
-    <div class="form-group" *ngIf="especialidadSeleccionada != null">
-
-      <h3 *ngIf="profesionalesAElegir.length == 0" class="text-center">No hay doctores para esta especialidad</h3>
-      <div *ngIf="profesionalesAElegir.length > 0">
-        <label for="doctor">Doctor</label>
-        <select class="form-control" id="doctor" [(ngModel)]="profesionalSeleccionado" name="profesionalSeleccionado">
-          <option [ngValue]="null" [disabled]="true">Seleccione un profesional</option>
-          <option value={{profesional.email}} *ngFor="let profesional of profesionalesAElegir">{{profesional.nombre}}
-            {{profesional.apellido}}</option>
-        </select>
+        <!-- <p>{{profesionalSeleccionado}}</p> -->
       </div>
 
+      <div class="col-4" *ngIf="profesionalSeleccionado">
+        <h3 class="font-weight-bold mb-3">Turnos</h3>
+        <app-lista-turnos [profesionalSeleccionadoInput]="profesionalSeleccionado" 
+        (seleccionarTurnoEvent)="traerTurnoSeleccionado($event)"></app-lista-turnos>
+
+        <!-- <p>{{turnoSeleccionado}}</p> -->
+      </div>
+      
     </div>
 
-    <div class="form-group row">
-      <div class="mx-5 col">
-        <label>Fecha</label>
-        <br>
-        <ngb-datepicker #dp [(ngModel)]="model" (navigate)="date = $event.next"></ngb-datepicker>
-      </div>
-
-      <div class="mx-5 col">
-        <label>Horario</label>
-        <ngb-timepicker name="time" [(ngModel)]="time" [hourStep]="hourStep" [minuteStep]="minuteStep"></ngb-timepicker>
-      </div>
-
-    </div>
-
-    <button type="button" class="btn btn-success btn-lg" (click)="agregarTurno()">Pedir turno</button>
-  </form>
+    <button type="button" class="btn btn-success btn-lg mt-3" (click)="agregarTurno()">Pedir turno</button>
+  
 </div>

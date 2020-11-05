@@ -13,8 +13,8 @@
 
       <div class="form-group">
         <h2 class="font-weight-bold">Horarios</h2>
-        <select class="form-control" id="horario" [(ngModel)]="horario" name="horario">
-          <option value='' selected>Seleccione su horario de trabajo</option>
+        <select class="form-control" id="horario" [(ngModel)]="horario" name="horario" (change)="elegirHorario(horario)">
+          <option [ngValue]="null" [disabled]="true" selected>Seleccione su horario de trabajo</option>
           <option value="am">8hs a 12hs</option>
           <option value="mediodia">12hs a 16hs</option>
           <option value="pm">16hs a 19hs</option>

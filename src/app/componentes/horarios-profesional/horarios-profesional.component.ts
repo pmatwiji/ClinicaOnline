@@ -16,7 +16,8 @@ export class HorariosProfesionalComponent implements OnInit {
 
   diasSeleccionados = [];
   horario:any = null;
-  franjaHoraria;
+  horarioInicio;
+  horarioFin;
 
 
   horarioDeTrabajo;
@@ -47,25 +48,38 @@ export class HorariosProfesionalComponent implements OnInit {
 
   guardarHorarios(){
     if(this.diasSeleccionados.length != 0){
-      if(this.horario != ''){
-        switch (this.horario) {
-          case 'am':
-            this.franjaHoraria = {inicio: 8, fin:12}
-          break;
-  
-          case 'mediodia':
-            this.franjaHoraria = {inicio: 12, fin:16}
-          break;
+      if(this.horario != null){
 
-          case 'pm':
-            this.franjaHoraria = {inicio: 16, fin:19}
-          break;
-          default:
-            break;
+        let hora;
+        let minutos = 0;
+
+        for (let index = 0; index < this.diasSeleccionados.length; index++) {
+          const dia = this.diasSeleccionados[index];
+          hora = this.horarioInicio;
+          let horaStr = hora + 'hs'
+
+          while (hora < this.horarioFin) {
+            this.firebaseService.agregarHorarios(this.mail,dia + ' ' + horaStr, dia + ' ' + horaStr );
+
+            minutos+=30;
+
+            if(minutos == 60){
+              hora++;
+              minutos=0;
+            }
+
+            if(minutos == 30){
+              horaStr = hora + ':' + minutos +'hs'
+            } else {
+              horaStr = hora + 'hs'
+            }
+         
+          }
+
+          hora = this.horarioInicio;
+          
         }
-        //this.horarioDeTrabajo = {dias: this.diasSeleccionados, horario: this.franjaHoraria}
-        this.firebaseService.agregarHorarios(this.mail,this.diasSeleccionados,this.franjaHoraria);
-        this.traerUser();
+
         this.toastr.success('Horarios guardados con exito!','Guardado');
 
       } else {
@@ -76,4 +90,31 @@ export class HorariosProfesionalComponent implements OnInit {
     }
   }
 
+
+  elegirHorario(evt){
+
+    switch (evt) {
+      case 'am':
+        this.horarioInicio = 8;
+        this.horarioFin = 12
+        //alert("inicio: "+ this.horarioInicio + " fin: " + this.horarioFin)
+      break;
+
+      case 'mediodia':
+        this.horarioInicio = 12;
+        this.horarioFin = 16
+        //alert("inicio: "+ this.horarioInicio + " fin: " + this.horarioFin)
+      break;
+
+      case 'pm':
+        this.horarioInicio = 16;
+        this.horarioFin = 19
+        //alert("inicio: "+ this.horarioInicio + " fin: " + this.horarioFin)
+      break;
+      default:
+        break;
+    }
+  }
 }
+
+

@@ -27,6 +27,10 @@ import { ProximosTurnosComponent } from './componentes/proximos-turnos/proximos-
 import { HistorialTurnosComponent } from './componentes/historial-turnos/historial-turnos.component';
 import { HabilitarProfesionalComponent } from './componentes/habilitar-profesional/habilitar-profesional.component';
 import { AltaAdminComponent } from './componentes/alta-admin/alta-admin.component';
+import { ListaEspecialidadComponent } from './componentes/sacar-turno/lista-especialidad/lista-especialidad.component';
+import { ListaProfesionalesComponent } from './componentes/sacar-turno/lista-profesionales/lista-profesionales.component';
+import { ListaTurnosComponent } from './componentes/sacar-turno/lista-turnos/lista-turnos.component';
+import { HistorialTurnosCompletadosComponent } from './componentes/historial-turnos-completados/historial-turnos-completados.component';
 
 
 @NgModule({
@@ -45,7 +49,11 @@ import { AltaAdminComponent } from './componentes/alta-admin/alta-admin.componen
     ProximosTurnosComponent,
     HistorialTurnosComponent,
     HabilitarProfesionalComponent,
-    AltaAdminComponent
+    AltaAdminComponent,
+    ListaEspecialidadComponent,
+    ListaProfesionalesComponent,
+    ListaTurnosComponent,
+    HistorialTurnosCompletadosComponent
   ],
   imports: [
     BrowserModule,

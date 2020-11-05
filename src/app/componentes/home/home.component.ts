@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
       this.firebaseService.traerUserPorMail(this.mailUser).then((datos) => {
         this.currentUser = datos;
         //console.log(this.currentUser)
-        this.compSeleccionado = this.currentUser[0].perfil == 'profesional' ? 'Turnos' : this.currentUser[0].perfil == 'paciente' ? 'Sacar turno' : this.currentUser[0].perfil == 'admin' ? 'Habilitar profesional' : 'Error';
+        this.compSeleccionado = this.currentUser[0].perfil == 'profesional' ? 'Turnos pendientes' : this.currentUser[0].perfil == 'paciente' ? 'Sacar turno' : this.currentUser[0].perfil == 'admin' ? 'Habilitar profesional' : 'Error';
       }).catch((error :any) => console.log(error));
       
     }).catch((error :any) => console.log(error)); 

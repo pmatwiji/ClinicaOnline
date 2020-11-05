@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { NgbTimeStruct, NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, Input } from '@angular/core';
+
 import { FirebaseService } from "../../servicios/firebase.service";
 
 import { ToastrService } from 'ngx-toastr';
@@ -14,33 +14,36 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class SacarTurnoComponent implements OnInit {
 
-  model: NgbDateStruct;
-  date: {year: number, month: number, day: number};
-
-  time: NgbTimeStruct = {hour: 8, minute: 0, second: 0};
-  hourStep = 1;
-  minuteStep = 30;
-
-  listaEspecialidades;
+  @Input() inputCurrentUser:any;
+  
   especialidadSeleccionada = null;
   profesionalesAElegir
-  profesionalSeleccionado = null
+  profesionalSeleccionado = null;
+  turnoSeleccionado = null;
 
-  constructor(private calendar: NgbCalendar,private firebaseService: FirebaseService,private toastr: ToastrService) { }
+  constructor(private firebaseService: FirebaseService,private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.firebaseService.traerColeccion('especialidades').then(datos=>this.listaEspecialidades = datos)
-  }
-
-  traerListadoProfesionales(especialidad){
-    this.firebaseService.traerProfesionalesHabilitadosPorEspecialidad(especialidad).then(datos=>this.profesionalesAElegir = datos);
   }
 
   agregarTurno(){
-    this.firebaseService.agregarTurno(this.date.day+'-'+this.date.month+'-'+this.date.year+'_'+this.time.hour+':'+this.time.minute,{profesional: this.profesionalSeleccionado, especialidad: this.especialidadSeleccionada, hora: this.time, fecha: this.date});
+    //this.firebaseService.agregarTurno(this.date.day+'-'+this.date.month+'-'+this.date.year+'_'+this.time.hour+':'+this.time.minute,{profesional: this.profesionalSeleccionado, especialidad: this.especialidadSeleccionada, hora: this.time, fecha: this.date, activo: true});
+    this.firebaseService.cargarTurno(this.profesionalSeleccionado,this.turnoSeleccionado,this.inputCurrentUser.nombre + ' ' + this.inputCurrentUser.apellido, this.especialidadSeleccionada)
     this.toastr.success('Turno cargado con exito!','Guardado');
   }
 
+  traerEspecialidadSeleccionada(especialidad:string){
+    this.especialidadSeleccionada = especialidad;
+    this.profesionalSeleccionado = null;
+  }
+
+  traerProfesionalSeleccionado(profesional:string){
+    this.profesionalSeleccionado = profesional;
+  }
+
+  traerTurnoSeleccionado(turno:string){
+    this.turnoSeleccionado = turno;
+  }
 
 
 
