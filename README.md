@@ -1,27 +1,97 @@
 # ClinicaOnline
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.0.
+“La clínica OnLine, especialista en salud, cuenta
+actualmente con consultorios (6 en la actualidad),
+dos laboratorios (físicos en la clínica), y una sala
+de espera general. Está abierta al público de lunes
+a viernes en el horario de 8:00 a 19:00, y los
+sábados en el horario de 8:00 a 14:00.
 
-## Development server
+## Guia de uso
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Perfiles
 
-## Code scaffolding
+### Administrador
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+El administrador esta a cargo de habilitar a los profesionales para poder atender en la clinica y puede dar de alta otros administradores.
 
-## Build
+### Paciente
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+El paciente utiliza la plataforma para poder pedir turnos y manejo de sus propios turnos.
 
-## Running unit tests
+### Profesional
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Los profesionales son quienes estan a cargo de atender a los pacientes. En esta plataforma pueden administrar los turnos de manera ordenada, teniendo acceso a turnos pendientes y un historial de turnos. Este tambien puede elegir los horarios en los que va a trabajar.
 
-## Running end-to-end tests
+## Guia de uso
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+### Login
 
-## Further help
+El usuario inicia sesion con su correo electronico y contraseña.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+![](readme_photos/login.jpg "Pantalla:")
+
+### Registro
+
+Un usuario nuevo puede registrarse eligiendo su perfil, puede ser profesional o paciente.
+![](readme_photos/registro.jpg "Pantalla:")
+
+#### Registro Profesional
+
+Formulario de registro Doctor:
+
+![](readme_photos/registro_profesional.jpg_ "Pantalla:")
+
+#### Correo de verificacion
+
+Una vez registrado, se envia un correo de verificacion a la casilla seleccionada. El usuario debe verificarse si o si para poder ingresar a la plataforma.
+
+### Paciente
+
+#### Sacar Turno
+
+El paciente puede elegir la especialidad, el medico de la especialidad seleccionada y uno de los turnos disponibles
+![](readme_photos/sacar_turno "Pantalla:")
+
+#### Proximos Turnos
+
+El paciente puede ver sus proximos turnos y en que estado se encuentran.
+
+![](readme_photos/proximos_turnos "Pantalla:")
+
+### Profesional
+
+#### Turnos pendientes
+
+El profesional acepta o rechaza los turnos pendientes de aprobacion
+![](readme_photos/turnos_pendientes "Pantalla:")
+
+#### Atender Turnos
+
+El profesional atiende a un paciente dejando una reseña del mismo
+![](readme_photos/atender_turnos_1 "Pantalla:")
+![](readme_photos/atender_turnos_2 "Pantalla:")
+
+#### Historial Turnos
+
+El profesional puede ver un historial de sus ultimos turnos
+![](readme_photos/historial_turnos_profesional "Pantalla:")
+
+##### Horarios
+
+El profesional puede elegir sus horarios de trabajo
+![](readme_photos/carga_horarios_profesional "Pantalla:")
+
+### Administrador
+
+##### Habilitar profesionales
+
+El administrador puede habilitar profesionales para que puedan atender en la clinica
+
+![](readme_photos/habilitar_profesional "Pantalla:")
+
+##### Carga de administradores
+
+El administrador es el unico que puede dar de alta otro administrador
+
+![](readme_photos/alta_admin "Pantalla:")
