@@ -40,7 +40,7 @@ Un usuario nuevo puede registrarse eligiendo su perfil, puede ser profesional o 
 
 Formulario de registro Doctor:
 
-![](readme_photos/registro_profesional.jpg_ "Pantalla:")
+![](readme_photos/registro_profesional.jpg "Pantalla:")
 
 #### Correo de verificacion
 
@@ -51,36 +51,36 @@ Una vez registrado, se envia un correo de verificacion a la casilla seleccionada
 #### Sacar Turno
 
 El paciente puede elegir la especialidad, el medico de la especialidad seleccionada y uno de los turnos disponibles
-![](readme_photos/sacar_turno "Pantalla:")
+![](readme_photos/sacar_turno.jpg "Pantalla:")
 
 #### Proximos Turnos
 
 El paciente puede ver sus proximos turnos y en que estado se encuentran.
 
-![](readme_photos/proximos_turnos "Pantalla:")
+![](readme_photos/proximos_turnos.jpg "Pantalla:")
 
 ### Profesional
 
 #### Turnos pendientes
 
 El profesional acepta o rechaza los turnos pendientes de aprobacion
-![](readme_photos/turnos_pendientes "Pantalla:")
+![](readme_photos/turnos_pendientes.jpg "Pantalla:")
 
 #### Atender Turnos
 
 El profesional atiende a un paciente dejando una reseña del mismo
-![](readme_photos/atender_turnos_1 "Pantalla:")
-![](readme_photos/atender_turnos_2 "Pantalla:")
+![](readme_photos/atender_turnos_1.jpg "Pantalla:")
+![](readme_photos/atender_turnos_2.jpg "Pantalla:")
 
 #### Historial Turnos
 
 El profesional puede ver un historial de sus ultimos turnos
-![](readme_photos/historial_turnos_profesional "Pantalla:")
+![](readme_photos/historial_turnos_profesional.jpg "Pantalla:")
 
 ##### Horarios
 
 El profesional puede elegir sus horarios de trabajo
-![](readme_photos/carga_horarios_profesional "Pantalla:")
+![](readme_photos/carga_horarios_profesional.jpg "Pantalla:")
 
 ### Administrador
 
@@ -88,10 +88,10 @@ El profesional puede elegir sus horarios de trabajo
 
 El administrador puede habilitar profesionales para que puedan atender en la clinica
 
-![](readme_photos/habilitar_profesional "Pantalla:")
+![](readme_photos/habilitar_profesional.jpg "Pantalla:")
 
 ##### Carga de administradores
 
 El administrador es el unico que puede dar de alta otro administrador
 
-![](readme_photos/alta_admin "Pantalla:")
+![](readme_photos/alta_admin.jpg "Pantalla:")
