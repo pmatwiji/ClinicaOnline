@@ -11,8 +11,9 @@
 
     <div class="list-group list-group-flush" *ngIf="currentUser[0].perfil == 'profesional'">
       <a class="list-group-item list-group-item-action bg-light" (click)="compSeleccionado = 'Turnos pendientes'">Turnos pendientes</a>
-      <a class="list-group-item list-group-item-action bg-light" (click)="compSeleccionado = 'Horarios'">Horarios</a>
       <a class="list-group-item list-group-item-action bg-light" (click)="compSeleccionado = 'Atender turnos'">Atender turnos</a>
+      <a class="list-group-item list-group-item-action bg-light" (click)="compSeleccionado = 'Historial de turnos'">Historial de turnos</a>
+      <a class="list-group-item list-group-item-action bg-light" (click)="compSeleccionado = 'Horarios'">Horarios</a>
     </div>
 
     <div class="list-group list-group-flush" *ngIf="currentUser[0].perfil == 'paciente'">
@@ -52,9 +53,10 @@
       <app-turnos *ngIf="compSeleccionado == 'Turnos pendientes' && currentUser[0].perfil == 'profesional'" [inputCurrentUser]="currentUser[0]"></app-turnos>
       <app-horarios-profesional [mail]="mailUser" *ngIf="compSeleccionado == 'Horarios' && currentUser[0].perfil == 'profesional'"></app-horarios-profesional>
       <app-atender-turnos *ngIf="compSeleccionado == 'Atender turnos' && currentUser[0].perfil == 'profesional'" [inputCurrentUser]="currentUser[0]"></app-atender-turnos>
+      <app-historial-turnos-completados *ngIf="compSeleccionado == 'Historial de turnos' && currentUser[0].perfil == 'profesional'" [inputCurrentUser]="currentUser[0]"></app-historial-turnos-completados>
 
       <app-sacar-turno *ngIf="compSeleccionado == 'Sacar turno' && currentUser[0].perfil == 'paciente'" [inputCurrentUser]="currentUser[0]"></app-sacar-turno>
-      <app-proximos-turnos *ngIf="compSeleccionado == 'Proximos turnos' && currentUser[0].perfil == 'paciente'"></app-proximos-turnos>
+      <app-proximos-turnos *ngIf="compSeleccionado == 'Proximos turnos' && currentUser[0].perfil == 'paciente'" [inputCurrentUser]="currentUser[0]"></app-proximos-turnos>
       <app-historial-turnos *ngIf="compSeleccionado == 'Historial de turnos' && currentUser[0].perfil == 'paciente'"></app-historial-turnos>
 
       <app-habilitar-profesional *ngIf="compSeleccionado == 'Habilitar profesional' && currentUser[0].perfil == 'admin'"></app-habilitar-profesional>

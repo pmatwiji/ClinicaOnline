@@ -35,8 +35,11 @@ export class AtenderTurnosComponent implements OnInit {
     this.toastr.success('El turno fue cancelado','Cancelado');
   }
 
-  atender(fecha,resenia){
-    this.firebaseService.agregarResenia(this.inputCurrentUser.email,fecha,resenia);
+  atender(resenia,especialidad,paciente,fecha){
+    let fechaActual = new Date().toString()
+
+    this.firebaseService.agregarResenia(this.inputCurrentUser.email,fechaActual,resenia,especialidad,paciente,fechaActual,'completado');
+    this.firebaseService.resetearTurno(this.inputCurrentUser.email,fecha)
     this.toastr.success('El paciente fue atendido con exito','Turno completo');
   }
 

@@ -30,7 +30,10 @@ export class TurnosComponent implements OnInit {
     this.modalService.open(content);
   }
 
-  cancelar(fecha){
+  cancelar(fecha,especialidad,paciente){
+
+    let fechaActual = new Date().toString()
+    this.firebaseService.agregarResenia(this.inputCurrentUser.email,fechaActual,'turno cancelado',especialidad,paciente,fechaActual,'cancelado');
     this.firebaseService.cancelarTurno(this.inputCurrentUser.email,fecha);
     this.toastr.success('El turno fue cancelado','Cancelado');
   }

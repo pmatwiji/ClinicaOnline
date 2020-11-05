@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , Input} from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { FirebaseService } from "../../servicios/firebase.service";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-proximos-turnos',
@@ -8,24 +10,34 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class ProximosTurnosComponent implements OnInit {
 
-  turnos = [{especialista: 'Dr. Bacon', especialidad: 'traumatologia', fecha: '01/01/2020', hora: '17:00hs', paciente: 'Pepe', comentario: 'lorem', estado: 'pendiente'},
-            {especialista: 'Dr. Bacon', especialidad: 'traumatologia', fecha: '01/01/2020', hora: '17:00hs', paciente: 'Pepe', comentario: 'lorem', estado: 'cancelado'},
-            {especialista: 'Dr. Bacon', especialidad: 'traumatologia', fecha: '01/01/2020', hora: '17:00hs', paciente: 'Pepe', comentario: 'lorem', estado: 'aceptado'}
-  ];
+  // turnos = [{especialista: 'Dr. Bacon', especialidad: 'traumatologia', fecha: '01/01/2020', hora: '17:00hs', paciente: 'Pepe', comentario: 'lorem', estado: 'pendiente'},
+  //           {especialista: 'Dr. Bacon', especialidad: 'traumatologia', fecha: '01/01/2020', hora: '17:00hs', paciente: 'Pepe', comentario: 'lorem', estado: 'cancelado'},
+  //           {especialista: 'Dr. Bacon', especialidad: 'traumatologia', fecha: '01/01/2020', hora: '17:00hs', paciente: 'Pepe', comentario: 'lorem', estado: 'aceptado'}
+  // ];
 
   currentRate = 0;
+  @Input() inputCurrentUser:any;
 
+  listaTurnos;
 
-  constructor(private modalService: NgbModal) { }
+  resenia:string
 
-  public isCollapsed = false;
-
-
+  constructor(private modalService: NgbModal,private firebaseService: FirebaseService,private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.firebaseService.traerTurnosPaciente(this.inputCurrentUser.nombre + ' ' + this.inputCurrentUser.apellido).subscribe(datos => this.listaTurnos = datos)
   }
 
   open(content) {
     this.modalService.open(content);
+  }
+
+  cancelar(fecha,especialidad,paciente,fechaCreacion){
+
+    let fechaActual = new Date().toString()
+    this.firebaseService.agregarResenia(this.inputCurrentUser.email,fechaActual,'turno cancelado',especialidad,paciente,fechaActual,'cancelado');
+    this.firebaseService.cancelarTurno(this.inputCurrentUser.email,fecha);
+    this.firebaseService.cancelarTurnoDesdePaciente(paciente,fechaCreacion);
+    this.toastr.success('El turno fue cancelado','Cancelado');
   }
 }

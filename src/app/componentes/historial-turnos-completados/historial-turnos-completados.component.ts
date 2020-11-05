@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , Input} from '@angular/core';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { FirebaseService } from "../../servicios/firebase.service";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-historial-turnos-completados',
@@ -7,9 +10,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HistorialTurnosCompletadosComponent implements OnInit {
 
-  constructor() { }
+  @Input() inputCurrentUser:any;
+
+  historialTurnos;
+
+  resenia:string
+
+  constructor(private modalService: NgbModal,private firebaseService: FirebaseService,private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.firebaseService.traerHistorialTurnos(this.inputCurrentUser.email).subscribe(datos => this.historialTurnos = datos)
   }
+
+  open(content) {
+    this.modalService.open(content);
+  }
+
 
 }

@@ -1,1 +1,61 @@
-<p>historial-turnos-completados works!</p>
+<div class="container ">
+    <div class="row d-flex justify-content-center">
+
+      <h3 class="mt-5" *ngIf="historialTurnos.length == 0">No hay turnos en el historial</h3>
+  
+      <div class="card text-white bg-info m-3" style="max-width: 18rem;" *ngFor="let turno of historialTurnos"
+        [ngClass]="{'bg-info': turno.estado=='pendiente','bg-danger': turno.estado == 'cancelado','bg-success': turno.estado == 'completado'}">
+        <div class="card-header text-center"><span class="font-weight-bold">Paciente: </span>{{turno.paciente}}</div>
+        <div class="card-body">
+          <p class="card-text"><span class="font-weight-bold">Estado: </span>{{turno.estado}}</p>
+          <p class="card-text"><span class="font-weight-bold">Especialidad: </span>{{turno.especialidad}}</p>
+          <p class="card-text"><span class="font-weight-bold">Fecha: </span>{{turno.fecha}}</p>
+          <p class="card-text"><span class="font-weight-bold">Reseña: </span>{{turno.resenia}}</p>
+  
+          <div class="form-group m-3 d-flex justify-content-center">
+            <button type="button" class="btn btn-light mr-1" (click)="open(content)">Detalles</button>
+            <!-- <button type="button" class="btn btn-light ml-1" [disabled]="turno.estado == 'cancelado'" (click)="cancelar(turno.fecha)">Cancelar</button> -->
+          </div>
+  
+        </div>
+  
+        <ng-template #content let-modal>
+          <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Detalles turno</h4>
+            <button type="button" class="close" (click)="modal.dismiss('Cross click')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- <form>
+                 <div class="form-group">
+                  <label for="exampleFormControlInput1">Email address</label>
+                  <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                </div>
+                <div class="form-group">
+                  <label for="exampleFormControlSelect1">Example select</label>
+                  <select class="form-control" id="exampleFormControlSelect1">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </select>
+                </div> 
+                <div class="form-group">
+                  <label for="resenia">Reseña</label>
+                  <textarea class="form-control" id="resenia" rows="3" [(ngModel)]="resenia" name="resenia"></textarea>
+                </div>
+              </form> -->
+              <h3>Comentario paciente:</h3>
+              <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Beatae quibusdam, eligendi, aspernatur est eum eveniet laboriosam voluptatibus pariatur saepe dolorem quo laudantium. Fugiat praesentium autem quis et, minus reprehenderit blanditiis!</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-success" (click)="modal.dismiss()">Cerrar</button>
+          </div>
+        </ng-template>
+  
+      </div>
+  
+    </div>
+</div>

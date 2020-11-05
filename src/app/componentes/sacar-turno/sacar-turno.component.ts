@@ -27,8 +27,11 @@ export class SacarTurnoComponent implements OnInit {
   }
 
   agregarTurno(){
-    //this.firebaseService.agregarTurno(this.date.day+'-'+this.date.month+'-'+this.date.year+'_'+this.time.hour+':'+this.time.minute,{profesional: this.profesionalSeleccionado, especialidad: this.especialidadSeleccionada, hora: this.time, fecha: this.date, activo: true});
+    let fechaActual = new Date().toString()
+    
     this.firebaseService.cargarTurno(this.profesionalSeleccionado,this.turnoSeleccionado,this.inputCurrentUser.nombre + ' ' + this.inputCurrentUser.apellido, this.especialidadSeleccionada)
+    this.firebaseService.agregarATurnosPaciente(this.inputCurrentUser.nombre + ' ' + this.inputCurrentUser.apellido,fechaActual,this.profesionalSeleccionado,this.especialidadSeleccionada,
+                                                this.inputCurrentUser.nombre + ' ' + this.inputCurrentUser.apellido,this.turnoSeleccionado,'pendiente');
     this.toastr.success('Turno cargado con exito!','Guardado');
   }
 
