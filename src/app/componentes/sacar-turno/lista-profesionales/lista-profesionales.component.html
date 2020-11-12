@@ -1,7 +1,7 @@
 <div class="list-group" id="list-tab" role="tablist">
     <a class="list-group-item list-group-item-action" id="{{profesional.email}}" data-toggle="list" role="tab"
-      *ngFor="let profesional of listaProfesionales" (click)="seleccionarProfesional(profesional.email)"
-      [ngClass]="{'active': selected == profesional.email}">{{profesional.nombre}} {{profesional.apellido}}</a>
+      *ngFor="let profesional of listaProfesionales" (click)="seleccionarProfesional(profesional)"
+      [ngClass]="{'active': selected == profesional}">{{profesional.nombre}} {{profesional.apellido}}</a>
     <h5 class="text-center" *ngIf="!listaProfesionales">No hay profesionales para esta especialidad</h5>
 </div>
   

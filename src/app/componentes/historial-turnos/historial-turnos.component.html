@@ -1,17 +1,17 @@
 <div class="container ">
     <div class="row d-flex justify-content-center">
   
-      <div class="card text-white bg-info m-3" style="max-width: 18rem;" *ngFor="let turno of turnos"
-        [ngClass]="{'bg-info': turno.estado=='pendiente','bg-danger': turno.estado == 'cancelado','bg-success': turno.estado == 'aceptado'}">
+      <div class="card text-white bg-info m-3" style="max-width: 18rem;" *ngFor="let turno of listaTurnos"
+        [ngClass]="{'bg-info': turno.estado=='pendiente','bg-danger': turno.estado == 'cancelado','bg-success': turno.estado == 'completado'}">
         <div class="card-header text-center"><span class="font-weight-bold">Paciente: </span>{{turno.paciente}}</div>
         <div class="card-body">
           <p class="card-text"><span class="font-weight-bold">Estado: </span>{{turno.estado}}</p>
           <p class="card-text"><span class="font-weight-bold">Especialista: </span>{{turno.especialista}}</p>
           <p class="card-text"><span class="font-weight-bold">Especialidad: </span>{{turno.especialidad}}</p>
-          <p class="card-text"><span class="font-weight-bold">Fecha: </span>{{turno.fecha}} {{turno.hora}}</p>
+          <p class="card-text"><span class="font-weight-bold">Fecha: </span>{{turno.fecha}}</p>
   
           <div class="form-group m-3 d-flex justify-content-center">
-            <button type="button" class="btn btn-light mr-1" (click)="open(content)">Detalles</button>
+            <button type="button" class="btn btn-light mr-1" (click)="open(content)" [disabled]="turno.estado != 'completado'">Detalles</button>
           </div>
   
         </div>
@@ -24,7 +24,8 @@
             </button>
           </div>
           <div class="modal-body">
-            <p>{{turno.comentario}}</p>
+            <h5>Reseña del profesional</h5>
+            <textarea class="form-control" rows="3" disabled>{{turno.resenia}}</textarea>
           </div>
   
           <button type="button" class="btn btn-primary mx-5 mb-3" (click)="isCollapsed = !isCollapsed"
@@ -36,13 +37,15 @@
             <div class="container mt-3">
               <form>
                   <div class="form-group">
-                      <label for="">Puntaje</label>
+                      <h5 for="">Puntaje</h5>
                       <br>
-                      <ngb-rating [(rate)]="currentRate"></ngb-rating>
+                      <ngb-rating *ngIf="!turno.comentario"[(rate)]="currentRate"></ngb-rating>
+                      <ngb-rating *ngIf="turno.comentario" [(rate)]="turno.puntaje" readonly=true></ngb-rating>
                   </div>
                 <div class="form-group">
-                  <label for="comentario">Comentario</label>
-                  <textarea class="form-control" id="comentario" rows="3" required></textarea>
+                  <h5 for="comentario">Comentario del paciente</h5>
+                  <textarea class="form-control" rows="3" disabled *ngIf="turno.comentario">{{turno.comentario}}</textarea>
+                  <textarea class="form-control" id="comentario" rows="3" required name="comentario" [(ngModel)]="comentario" *ngIf="!turno.comentario"></textarea>
                 </div>
   
   
@@ -52,7 +55,7 @@
           </div>
   
           <div class="modal-footer">
-            <button type="button" class="btn btn-outline-success ">Enviar</button>
+            <button type="button" class="btn btn-outline-success " [disabled]="turno.comentario" (click)="agregarComentario(turno.especialista,turno.paciente,turno.fecha);modal.dismiss()">Enviar</button>
             <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss()">Cerrar</button>
           </div>
         </ng-template>

@@ -11,15 +11,12 @@ import { ToastrService } from 'ngx-toastr';
 export class HistorialTurnosCompletadosComponent implements OnInit {
 
   @Input() inputCurrentUser:any;
-
   historialTurnos;
-
-  resenia:string
 
   constructor(private modalService: NgbModal,private firebaseService: FirebaseService,private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.firebaseService.traerHistorialTurnos(this.inputCurrentUser.email).subscribe(datos => this.historialTurnos = datos)
+    this.firebaseService.traerHistorialProfesional(this.inputCurrentUser.nombre + ' ' + this.inputCurrentUser.apellido).subscribe(datos => this.historialTurnos = datos)
   }
 
   open(content) {

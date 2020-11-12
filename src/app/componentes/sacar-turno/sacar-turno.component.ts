@@ -29,9 +29,12 @@ export class SacarTurnoComponent implements OnInit {
   agregarTurno(){
     let fechaActual = new Date().toString()
     
-    this.firebaseService.cargarTurno(this.profesionalSeleccionado,this.turnoSeleccionado,this.inputCurrentUser.nombre + ' ' + this.inputCurrentUser.apellido, this.especialidadSeleccionada)
-    this.firebaseService.agregarATurnosPaciente(this.inputCurrentUser.nombre + ' ' + this.inputCurrentUser.apellido,fechaActual,this.profesionalSeleccionado,this.especialidadSeleccionada,
-                                                this.inputCurrentUser.nombre + ' ' + this.inputCurrentUser.apellido,this.turnoSeleccionado,'pendiente');
+    this.firebaseService.agregarATurnosProfesional(this.profesionalSeleccionado.nombre + ' ' + this.profesionalSeleccionado.apellido,this.turnoSeleccionado,this.profesionalSeleccionado.nombre + ' ' + this.profesionalSeleccionado.apellido,
+                                                  this.especialidadSeleccionada, this.inputCurrentUser.nombre + ' ' + this.inputCurrentUser.apellido,'pendiente',fechaActual,true);
+    this.firebaseService.agregarATurnosPaciente(this.inputCurrentUser.nombre + ' ' + this.inputCurrentUser.apellido,this.turnoSeleccionado,this.profesionalSeleccionado.nombre + ' ' + this.profesionalSeleccionado.apellido,this.especialidadSeleccionada,
+                                                this.inputCurrentUser.nombre + ' ' + this.inputCurrentUser.apellido,this.turnoSeleccionado,'pendiente',fechaActual);
+    this.firebaseService.agregarTurno(this.turnoSeleccionado,this.especialidadSeleccionada,this.profesionalSeleccionado.nombre + ' ' + this.profesionalSeleccionado.apellido,
+                                      this.inputCurrentUser.nombre + ' ' + this.inputCurrentUser.apellido,'pendiente');                                            
     this.toastr.success('Turno cargado con exito!','Guardado');
   }
 

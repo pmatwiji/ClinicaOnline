@@ -23,23 +23,27 @@ export class TurnosComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.firebaseService.traerTurnosPendientes(this.inputCurrentUser.email).subscribe(datos => this.listaTurnosPendientes = datos)
+    this.firebaseService.traerTurnosPendientes(this.inputCurrentUser.nombre + ' ' + this.inputCurrentUser.apellido).subscribe(datos => this.listaTurnosPendientes = datos)
   }
 
   open(content) {
     this.modalService.open(content);
   }
 
-  cancelar(fecha,especialidad,paciente){
+  cancelar(especialista,fecha,paciente){
 
-    let fechaActual = new Date().toString()
-    this.firebaseService.agregarResenia(this.inputCurrentUser.email,fechaActual,'turno cancelado',especialidad,paciente,fechaActual,'cancelado');
-    this.firebaseService.cancelarTurno(this.inputCurrentUser.email,fecha);
+    this.firebaseService.agregarReseniaATurnos(fecha+' '+especialista,'Cancelado por el profesional','cancelado')
+    this.firebaseService.agregarReseniaAProfesional(especialista,fecha,'Cancelado por el profesional','cancelado');
+    this.firebaseService.agregarReseniaAPaciente(paciente,fecha,'Cancelado por el profesional','cancelado');
+
     this.toastr.success('El turno fue cancelado','Cancelado');
   }
 
-  aceptar(fecha){
-    this.firebaseService.aceptarTurno(this.inputCurrentUser.email,fecha);
+  aceptar(fecha,paciente,profesional){
+    this.firebaseService.aceptarTurno(fecha+ ' ' + this.inputCurrentUser.nombre + ' ' + this.inputCurrentUser.apellido);
+    this.firebaseService.aceptarTurnoPaciente(paciente,fecha);
+    this.firebaseService.aceptarTurnoProfesional(profesional,fecha)
+
     this.toastr.success('El turno fue aceptado','Aceptado');
   }
 

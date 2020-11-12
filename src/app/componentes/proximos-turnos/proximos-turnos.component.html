@@ -1,6 +1,8 @@
 <div class="container ">
   <div class="row d-flex justify-content-center">
 
+    <h3 class="mt-5" *ngIf="listaTurnos.length == 0">No hay turnos pendientes</h3>
+
     <div class="card text-white bg-info m-3" style="max-width: 18rem;" *ngFor="let turno of listaTurnos"
       [ngClass]="{'bg-info': turno.estado=='pendiente','bg-danger': turno.estado == 'cancelado','bg-success': turno.estado == 'aceptado'}">
       <div class="card-header text-center"><span class="font-weight-bold">Paciente: </span>{{turno.paciente}}</div>
@@ -8,10 +10,10 @@
         <p class="card-text"><span class="font-weight-bold">Estado: </span>{{turno.estado}}</p>
         <p class="card-text"><span class="font-weight-bold">Especialista: </span>{{turno.especialista}}</p>
         <p class="card-text"><span class="font-weight-bold">Especialidad: </span>{{turno.especialidad}}</p>
-        <p class="card-text"><span class="font-weight-bold">Fecha: </span>{{turno.fecha}} {{turno.hora}}</p>
+        <p class="card-text"><span class="font-weight-bold">Fecha: </span>{{turno.fecha}}</p>
 
         <div class="form-group m-3 d-flex justify-content-center"> 
-          <button type="button" class="btn btn-light ml-1" [disabled]="turno.estado == 'cancelado'" (click)="cancelar(turno.fecha,turno.especialidad,turno.paciente,turno.creado) ">Cancelar</button>
+          <button type="button" class="btn btn-light ml-1" [disabled]="turno.estado == 'cancelado'" (click)="cancelar(turno.especialista,turno.fecha,turno.paciente) ">Cancelar</button>
         </div>
 
       </div>

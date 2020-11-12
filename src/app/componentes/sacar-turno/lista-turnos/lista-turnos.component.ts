@@ -12,21 +12,33 @@ export class ListaTurnosComponent implements OnInit {
 
   listaTurnos:any;
   @Output() seleccionarTurnoEvent = new EventEmitter<string>();
-  @Input() profesionalSeleccionadoInput:string
+  @Input() profesionalSeleccionadoInput:any
 
   selected:any;
+
+  hoy = new Date().getDate();
+  diaTurno;
   
 
   ngOnInit(): void {
-    
+   
   }
   ngOnChanges(){
-    this.firebaseService.traerTurnosLibres(this.profesionalSeleccionadoInput).subscribe(datos => this.listaTurnos = datos)//.then(datos=>this.listaTurnos = datos);
+    this.firebaseService.traerTurnosLibres(this.profesionalSeleccionadoInput.nombre + ' ' + this.profesionalSeleccionadoInput.apellido).subscribe(datos => this.listaTurnos = datos)//.then(datos=>this.listaTurnos = datos);
   }
 
   seleccionarTurno(turno:string){
     this.seleccionarTurnoEvent.emit(turno);
     this.selected=turno;
+  }
+
+  tomarDia(fecha){
+    this.diaTurno= fecha.split(' ');
+    if(this.hoy >= parseInt(this.diaTurno[1])){
+      return false;
+    } else{
+      return true
+    }
   }
 
 }

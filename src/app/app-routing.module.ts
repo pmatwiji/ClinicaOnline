@@ -10,7 +10,7 @@ import { VerificacionMailComponent } from './componentes/verificacion-mail/verif
 const routes: Routes = [
   {path: '', component: PrincipalComponent},
   {path: 'home', component: HomeComponent, canActivate: [CheckLoginGuard]},
-  {path: 'verificacion-mail',component: VerificacionMailComponent},
+  {path: 'verificacion-mail',component: VerificacionMailComponent, canActivate: [CheckLoginGuard]},
   {path: '**', component: PrincipalComponent}
 ];
 

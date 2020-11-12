@@ -9,11 +9,11 @@
         <div class="card-body">
           <p class="card-text"><span class="font-weight-bold">Estado: </span>{{turno.estado}}</p>
           <p class="card-text"><span class="font-weight-bold">Especialidad: </span>{{turno.especialidad}}</p>
-          <p class="card-text"><span class="font-weight-bold">Fecha: </span>{{turno.fecha}}</p>
+          <p class="card-text"><span class="font-weight-bold">Fecha atendido: </span>{{turno.fecha}} </p>
           <p class="card-text"><span class="font-weight-bold">Reseña: </span>{{turno.resenia}}</p>
   
           <div class="form-group m-3 d-flex justify-content-center">
-            <button type="button" class="btn btn-light mr-1" (click)="open(content)">Detalles</button>
+            <button type="button" class="btn btn-light mr-1" (click)="open(content)" [disabled]="!turno.comentario">Detalles</button>
             <!-- <button type="button" class="btn btn-light ml-1" [disabled]="turno.estado == 'cancelado'" (click)="cancelar(turno.fecha)">Cancelar</button> -->
           </div>
   
@@ -48,7 +48,7 @@
                 </div>
               </form> -->
               <h3>Comentario paciente:</h3>
-              <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Beatae quibusdam, eligendi, aspernatur est eum eveniet laboriosam voluptatibus pariatur saepe dolorem quo laudantium. Fugiat praesentium autem quis et, minus reprehenderit blanditiis!</p>
+              <p>{{turno.comentario}}</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-success" (click)="modal.dismiss()">Cerrar</button>

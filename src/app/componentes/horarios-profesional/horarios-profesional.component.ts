@@ -10,8 +10,7 @@ import { FirebaseService } from "../../servicios/firebase.service";
 })
 export class HorariosProfesionalComponent implements OnInit {
 
-  @Input() mail:any;
-  currentUser;
+  @Input() inputCurrentUser:any;
   diasSemana:any = ['Lunes','Martes','Miercoles','Jueves','Viernes','Sabado'];
 
   diasSeleccionados = [];
@@ -20,19 +19,17 @@ export class HorariosProfesionalComponent implements OnInit {
   horarioFin;
 
 
-  horarioDeTrabajo;
-
   constructor( private toastr: ToastrService, private firebaseService: FirebaseService) { }
 
   ngOnInit(): void {
-    this.traerUser()
+    //this.traerUser()
   }
 
-  traerUser(){
-    this.firebaseService.traerUserPorMail(this.mail).then((datos) => {
-      this.currentUser = datos;
-    }).catch((error :any) => console.log(error));
-  }
+  // traerUser(){
+  //   this.firebaseService.traerUserPorMail(this.inputCurrentUser.email).then((datos) => {
+  //     this.currentUser = datos;
+  //   }).catch((error :any) => console.log(error));
+  // }
 
   onCheck(evt) {
     if (!this.diasSeleccionados.includes(evt)) {
@@ -46,6 +43,31 @@ export class HorariosProfesionalComponent implements OnInit {
     console.log(this.diasSeleccionados);
   }
 
+  elegirHorario(evt){
+
+    switch (evt) {
+      case 'am':
+        this.horarioInicio = 8;
+        this.horarioFin = 12
+        //alert("inicio: "+ this.horarioInicio + " fin: " + this.horarioFin)
+      break;
+
+      case 'mediodia':
+        this.horarioInicio = 12;
+        this.horarioFin = 16
+        //alert("inicio: "+ this.horarioInicio + " fin: " + this.horarioFin)
+      break;
+
+      case 'pm':
+        this.horarioInicio = 16;
+        this.horarioFin = 19
+        //alert("inicio: "+ this.horarioInicio + " fin: " + this.horarioFin)
+      break;
+      default:
+        break;
+    }
+  }
+
   guardarHorarios(){
     if(this.diasSeleccionados.length != 0){
       if(this.horario != null){
@@ -54,12 +76,36 @@ export class HorariosProfesionalComponent implements OnInit {
         let minutos = 0;
 
         for (let index = 0; index < this.diasSeleccionados.length; index++) {
-          const dia = this.diasSeleccionados[index];
+          let dia = this.diasSeleccionados[index];
+
+          if(dia == 'Sabado'){
+            this.horarioInicio = 8;
+            this.horarioFin = 14;
+          }
+
+          let hoy = new Date();
+          let  dias = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"];
+          let meses =  ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']
+
+          if(dias[hoy.getDay()] == dia){
+            dia = dia + ' ' + (hoy.getDate()+7) + ' ' + meses[hoy.getMonth()]
+            //console.log(dia);
+          } else {
+            while(dias[hoy.getDay()] != dia){
+              hoy.setDate(hoy.getDate()+1) 
+            }
+            dia = dia + ' ' + hoy.getDate() + ' ' + meses[hoy.getMonth()]
+            //console.log(dia);
+          }
+
+
           hora = this.horarioInicio;
           let horaStr = hora + 'hs'
 
+          
+
           while (hora < this.horarioFin) {
-            this.firebaseService.agregarHorarios(this.mail,dia + ' ' + horaStr, dia + ' ' + horaStr );
+            this.firebaseService.agregarHorarios(this.inputCurrentUser.nombre + ' ' + this.inputCurrentUser.apellido,dia + ' ' + horaStr, dia + ' ' + horaStr );
 
             minutos+=30;
 
@@ -91,30 +137,7 @@ export class HorariosProfesionalComponent implements OnInit {
   }
 
 
-  elegirHorario(evt){
-
-    switch (evt) {
-      case 'am':
-        this.horarioInicio = 8;
-        this.horarioFin = 12
-        //alert("inicio: "+ this.horarioInicio + " fin: " + this.horarioFin)
-      break;
-
-      case 'mediodia':
-        this.horarioInicio = 12;
-        this.horarioFin = 16
-        //alert("inicio: "+ this.horarioInicio + " fin: " + this.horarioFin)
-      break;
-
-      case 'pm':
-        this.horarioInicio = 16;
-        this.horarioFin = 19
-        //alert("inicio: "+ this.horarioInicio + " fin: " + this.horarioFin)
-      break;
-      default:
-        break;
-    }
-  }
+  
 }
 
 

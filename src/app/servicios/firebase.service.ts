@@ -29,9 +29,7 @@ export class FirebaseService {
     this.firestore.collection('especialidades').doc(documento).set({nombre: especialidad});
   }
 
-  agregarTurno(documento:string,data:any){
-    this.firestore.collection('turnos').doc(documento).set(data);
-  }
+  
 
   cargarTurno(coleccion,documento,usuario,especialidad){
     this.firestore.collection(coleccion +' turnos').doc(documento).update({ocupado: true, paciente: usuario, especialidad: especialidad, estado: 'pendiente'});
@@ -79,32 +77,75 @@ export class FirebaseService {
     return this.firestore.collection(coleccion+ ' turnos', ref => {return ref.where('estado','==','aceptado')}).valueChanges()
  }
 
- traerHistorialTurnos(coleccion){
-  return this.firestore.collection('historial ' + coleccion).valueChanges()
+ traerHistorialProfesional(coleccion){
+  return this.firestore.collection(coleccion + ' turnos', ref => {return ref.where('estado','in',['cancelado', 'completado'])}).valueChanges()
+}
+
+traerHistorialPaciente(coleccion){
+  return this.firestore.collection('turnos ' + coleccion, ref => {return ref.where('estado','not-in',['pendiente', 'aceptado'])}).valueChanges()
 }
 
 traerTurnosPaciente(coleccion){
-  return this.firestore.collection('turnos ' + coleccion).valueChanges()
+  return this.firestore.collection('turnos ' + coleccion, ref => {return ref.where('estado','not-in',['completado', 'cancelado'])}).valueChanges()
 }
 
-  cancelarTurno(coleccion,documento){
-    this.firestore.collection(coleccion+ ' turnos').doc(documento).update({estado: 'cancelado'});
+  cancelarTurno(documento){
+    this.firestore.collection('turnos').doc(documento).update({estado: 'cancelado'});
   }
 
-  cancelarTurnoDesdePaciente(coleccion,documento){
+  cancelarTurnoPaciente(coleccion,documento){
     this.firestore.collection('turnos ' + coleccion).doc(documento).update({estado: 'cancelado'});
   }
 
-  aceptarTurno(coleccion,documento){
-    this.firestore.collection(coleccion+ ' turnos').doc(documento).update({estado: 'aceptado'});
+  aceptarTurno(documento){
+    this.firestore.collection('turnos').doc(documento).update({estado: 'aceptado'});
   }
 
-  agregarResenia(coleccion,documento,resenia,especialidad, paciente, fecha,estado){
-    this.firestore.collection('historial ' + coleccion).doc(documento).set({resenia: resenia, estado: estado, especialidad: especialidad, paciente: paciente, fecha: fecha});
+  aceptarTurnoPaciente(paciente,fecha){
+    this.firestore.collection('turnos ' + paciente ).doc(fecha).update({estado: 'aceptado'});
   }
 
-  agregarATurnosPaciente(coleccion,documento,especialista,especialidad, paciente, fecha,estado){
-    this.firestore.collection('turnos ' + coleccion).doc(documento).set({estado: estado,especialista: especialista, especialidad: especialidad, paciente: paciente, fecha: fecha, creado: documento});
+  aceptarTurnoProfesional(profesional,fecha){
+    this.firestore.collection(profesional + ' turnos').doc(fecha).update({estado: 'aceptado'});
+  }
+
+  agregarReseniaATurnos(documento,resenia,estado){
+    this.firestore.collection('turnos').doc(documento).update({resenia: resenia, estado: estado});
+  }
+
+  agregarReseniaAProfesional(coleccion,documento,resenia,estado){
+    this.firestore.collection(coleccion+ ' turnos').doc(documento).update({resenia: resenia, estado: estado});
+  }
+
+  agregarReseniaAPaciente(coleccion,documento,resenia,estado){
+    this.firestore.collection('turnos ' + coleccion).doc(documento).update({resenia: resenia, estado: estado});
+  }
+
+  agregarTurno(fechaTurno:string, especialidad:string, especialista:string, paciente:string,estado:string,){
+    this.firestore.collection('turnos').doc(fechaTurno + ' ' + especialista).set(
+      {fecha: fechaTurno,especialista: especialista, especialidad: especialidad, paciente: paciente, estado: estado});
+  }
+
+  agregarATurnosPaciente(coleccion,documento,especialista,especialidad, paciente, fecha,estado,fechaCreado){
+    this.firestore.collection('turnos ' + coleccion).doc(documento).set(
+      {estado: estado,especialista: especialista, especialidad: especialidad, paciente: paciente, fecha: fecha, creado: fechaCreado});
+  }
+
+  agregarATurnosProfesional(coleccion,documento,especialista,especialidad, paciente,estado,fechaCreado,ocupado){
+    this.firestore.collection(coleccion + ' turnos').doc(documento).update(
+      {estado: estado,especialista: especialista, especialidad: especialidad, paciente: paciente, creado: fechaCreado, ocupado: ocupado});
+  }
+
+  agregarComentario(documento,comentario,puntaje){
+    this.firestore.collection('turnos').doc(documento).update({comentario: comentario, puntaje: puntaje});
+  }
+
+  agregarComentarioPaciente(paciente,fecha,comentario,puntaje){
+    this.firestore.collection('turnos ' + paciente).doc(fecha).update({comentario: comentario, puntaje: puntaje});
+  }
+
+  agregarComentarioProfesional(profesional, fecha,comentario,puntaje){
+    this.firestore.collection(profesional+' turnos').doc(fecha).update({comentario: comentario, puntaje: puntaje});
   }
 
   resetearTurno(coleccion,documento){

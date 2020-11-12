@@ -15,12 +15,10 @@ export class ProximosTurnosComponent implements OnInit {
   //           {especialista: 'Dr. Bacon', especialidad: 'traumatologia', fecha: '01/01/2020', hora: '17:00hs', paciente: 'Pepe', comentario: 'lorem', estado: 'aceptado'}
   // ];
 
-  currentRate = 0;
   @Input() inputCurrentUser:any;
 
   listaTurnos;
-
-  resenia:string
+  
 
   constructor(private modalService: NgbModal,private firebaseService: FirebaseService,private toastr: ToastrService) { }
 
@@ -32,12 +30,12 @@ export class ProximosTurnosComponent implements OnInit {
     this.modalService.open(content);
   }
 
-  cancelar(fecha,especialidad,paciente,fechaCreacion){
+  cancelar(especialista,fecha,paciente){
 
-    let fechaActual = new Date().toString()
-    this.firebaseService.agregarResenia(this.inputCurrentUser.email,fechaActual,'turno cancelado',especialidad,paciente,fechaActual,'cancelado');
-    this.firebaseService.cancelarTurno(this.inputCurrentUser.email,fecha);
-    this.firebaseService.cancelarTurnoDesdePaciente(paciente,fechaCreacion);
+    this.firebaseService.agregarReseniaATurnos(fecha+' '+especialista,'Cancelado por el paciente','cancelado')
+    this.firebaseService.agregarReseniaAProfesional(especialista,fecha,'Cancelado por el paciente','cancelado');
+    this.firebaseService.agregarReseniaAPaciente(paciente,fecha,'Cancelado por el paciente','cancelado');
+
     this.toastr.success('El turno fue cancelado','Cancelado');
   }
 }

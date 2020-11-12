@@ -11,9 +11,9 @@
           <p class="card-text"><span class="font-weight-bold">Especialidad: </span>{{turno.especialidad}}</p>
           <p class="card-text"><span class="font-weight-bold">Fecha: </span>{{turno.fecha}}</p>
   
-          <div class="form-group m-3">
+          <div class="form-group m-3 d-flex justify-content-center">
             <button type="button" class="btn btn-light mr-1" (click)="open(content)">Atender</button>
-            <button type="button" class="btn btn-light ml-1" [disabled]="turno.estado == 'cancelado'" (click)="cancelar(turno.fecha)">Cancelar</button>
+            <button type="button" class="btn btn-light ml-1" (click)="cancelar(turno.especialista,turno.fecha,turno.paciente)">Cancelar</button>
           </div>
   
         </div>
@@ -21,34 +21,71 @@
         <ng-template #content let-modal>
           <div class="modal-header">
             <h4 class="modal-title" id="modal-basic-title">Atender paciente</h4>
-            <button type="button" class="close" (click)="modal.dismiss('Cross click')">
+            <button type="button" class="close" (click)="modal.dismiss('Cross click');reset()">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
             <form>
-                <!-- <div class="form-group">
-                  <label for="exampleFormControlInput1">Email address</label>
-                  <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-                </div>
+
                 <div class="form-group">
-                  <label for="exampleFormControlSelect1">Example select</label>
-                  <select class="form-control" id="exampleFormControlSelect1">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                  </select>
-                </div> -->
+                  <label>Edad</label>
+                  <input type="text" class="form-control" placeholder="Edad del paciente" [(ngModel)]="edadPaciente" name="edadPaciente">
+                </div>
+
+                <div class="form-group">
+                  <label>Temperatura corporal</label>
+                  <input type="text" class="form-control" placeholder="Temperatura corporal" [(ngModel)]="edadPaciente" name="edadPaciente">
+                </div>
+
+                <div class="form-group">
+                  <label>Presion</label>
+                  <input type="text" class="form-control" placeholder="Presion arterial" [(ngModel)]="presionPaciente" name="presionPaciente">
+                </div>
+
                 <div class="form-group">
                   <label for="resenia">Reseña</label>
-                  <textarea class="form-control" id="resenia" rows="3" [(ngModel)]="resenia" name="resenia"></textarea>
+                  <textarea class="form-control" id="resenia" rows="3" [(ngModel)]="resenia" name="resenia" placeholder="Reseña del paciente"></textarea>
                 </div>
+
+                <div class="form-group">
+                  <h5>Datos Extra</h5>
+                  <button type="button" class="btn btn-info" (click)="campos = campos+1" [disabled]="campos == 3">Agregar campo</button>
+
+                  <div class="form-row " *ngIf="campos > 0">
+                    <div class="col m-3">
+                      <input type="text" class="form-control" placeholder="Nombre Campo" >
+                    </div>
+                    <div class="col m-3">
+                      <input type="text" class="form-control" placeholder="Valor Campo" >
+                    </div>
+                  </div>
+
+                  <div class="form-row " *ngIf="campos > 1">
+                    <div class="col m-3">
+                      <input type="text" class="form-control" placeholder="Nombre Campo" >
+                    </div>
+                    <div class="col m-3">
+                      <input type="text" class="form-control" placeholder="Valor Campo" >
+                    </div>
+                  </div>
+
+                  <div class="form-row " *ngIf="campos > 2">
+                    <div class="col m-3">
+                      <input type="text" class="form-control" placeholder="Nombre Campo" >
+                    </div>
+                    <div class="col m-3">
+                      <input type="text" class="form-control" placeholder="Valor Campo" >
+                    </div>
+                  </div>
+
+                </div>
+
+
               </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-outline-success" (click)="modal.dismiss(); atender(resenia,turno.especialidad,turno.paciente,turno.fecha)">Finalizar turno</button>
+            <button type="button" class="btn btn-outline-success" (click)="modal.dismiss(); atender(resenia,turno.especialista,turno.paciente,turno.fecha)">Finalizar turno</button>
           </div>
         </ng-template>
   
