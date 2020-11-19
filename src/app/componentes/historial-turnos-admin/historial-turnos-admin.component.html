@@ -1,7 +1,23 @@
 <div class="container ">
     <div class="row d-flex justify-content-center">
+        <div class="col m-3">
+            <input type="text" class="form-control" placeholder="Ingrese la busqueda" required="required" name="busqueda" [(ngModel)]="busqueda" (input)="filtro(busqueda,filtroSeleccionado)">
+          </div>
+          <div class="col m-3">
+            <select  class="form-control col mx-1" name="especialidad" name="filtroSeleccionado" [(ngModel)]="filtroSeleccionado">
+                <option [ngValue]="null" [disabled]="true" >Seleccione especialidad</option>
+                <option value="paciente">Nombre de paciente</option>
+                <option value="especialista">Nombre del médico</option>
+                <option value="especialidad">Especialidad</option>
+                <option value="temperatura">Temperatura</option>
+                <option value="fecha">Fecha</option>
+                <option value="extra">Campo extra</option>
+              </select>
+          </div>
+    </div>
+    <div class="row d-flex justify-content-center">
   
-      <div class="card text-white m-3" style="max-width: 18rem;" *ngFor="let turno of listaTurnos" [EstadoColor]=turno.estado>
+      <div class="card text-white m-3" style="max-width: 18rem;" *ngFor="let turno of listaTurnos" [EstadoColor]=turno.estado >
         <div class="card-header text-center"><span class="font-weight-bold">Paciente: </span>{{turno.paciente |primeraLetraUppercase}}</div>
         <div class="card-body">
           <p class="card-text"><span class="font-weight-bold">Estado: </span>{{turno.estado | primeraLetraUppercase}}</p>
@@ -18,13 +34,17 @@
         <ng-template #content let-modal>
           <div class="modal-header">
             <h4 class="modal-title" id="modal-basic-title">Detalles</h4>
-            <button type="button" class="close" (click)="modal.dismiss('Cross click');reset()">
+            <button type="button" class="close" (click)="modal.dismiss('Cross click');">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
             <h5>Reseña del profesional</h5>
             <textarea class="form-control" rows="3" disabled>{{turno.resenia | primeraLetraUppercase}}</textarea>
+
+            <p class="form-control mt-3" *ngIf="turno.edad"><span class="font-weight-bold">Edad: </span>{{turno.edad}}</p>
+              <p class="form-control mt-3" *ngIf="turno.temperatura"><span class="font-weight-bold">Temperatura: </span>{{turno.temperatura}}</p>
+              <p class="form-control mt-3" *ngIf="turno.presion"><span class="font-weight-bold">Presion: </span>{{turno.presion}}</p>
 
             <p class="form-control mt-3" *ngIf="turno.campoExtraUno"><span class="font-weight-bold">{{turno.campoExtraUno | primeraLetraUppercase}}: </span>{{turno.datoExtraUno | primeraLetraUppercase}}</p>
             <p class="form-control mt-3" *ngIf="turno.campoExtraDos"><span class="font-weight-bold">{{turno.campoExtraDos | primeraLetraUppercase}}: </span>{{turno.datoExtraDos | primeraLetraUppercase}}</p>
@@ -42,13 +62,13 @@
                   <div class="form-group">
                       <h5 for="">Puntaje</h5>
                       <br>
-                      <ngb-rating *ngIf="!turno.comentario"[(rate)]="currentRate"></ngb-rating>
+                      
                       <ngb-rating *ngIf="turno.comentario" [(rate)]="turno.puntaje" readonly=true></ngb-rating>
                   </div>
                 <div class="form-group">
                   <h5 for="comentario">Comentario del paciente</h5>
                   <textarea class="form-control" rows="3" disabled *ngIf="turno.comentario">{{turno.comentario | primeraLetraUppercase}}</textarea>
-                  <textarea class="form-control" id="comentario" rows="3" required name="comentario" [(ngModel)]="comentario" *ngIf="!turno.comentario"></textarea>
+                  
                 </div>
   
   
@@ -58,12 +78,11 @@
           </div>
   
           <div class="modal-footer">
-            <button type="button" class="btn btn-outline-success " [disabled]="turno.comentario" (click)="agregarComentario(turno.especialista,turno.paciente,turno.fecha);modal.dismiss()">Enviar</button>
-            <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss();reset()">Cerrar</button>
+            <!-- <button type="button" class="btn btn-outline-success " [disabled]="turno.comentario" (click)="agregarComentario(turno.especialista,turno.paciente,turno.fecha);modal.dismiss()">Enviar</button> -->
+            <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss();">Cerrar</button>
           </div>
         </ng-template>
   
-      </div>
+    </div>
   
 </div>
-  

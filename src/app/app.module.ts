@@ -31,6 +31,11 @@ import { ListaEspecialidadComponent } from './componentes/sacar-turno/lista-espe
 import { ListaProfesionalesComponent } from './componentes/sacar-turno/lista-profesionales/lista-profesionales.component';
 import { ListaTurnosComponent } from './componentes/sacar-turno/lista-turnos/lista-turnos.component';
 import { HistorialTurnosCompletadosComponent } from './componentes/historial-turnos-completados/historial-turnos-completados.component';
+import { PrimeraLetraUppercasePipe } from './pipes/primera-letra-uppercase.pipe';
+import { EstadoColorDirective } from './directivas/estado-color.directive';
+import { HistorialTurnosAdminComponent } from './componentes/historial-turnos-admin/historial-turnos-admin.component';
+import { GraficosComponent } from './componentes/graficos/graficos.component';
+import { InformesComponent } from './componentes/informes/informes.component';
 
 
 @NgModule({
@@ -53,7 +58,12 @@ import { HistorialTurnosCompletadosComponent } from './componentes/historial-tur
     ListaEspecialidadComponent,
     ListaProfesionalesComponent,
     ListaTurnosComponent,
-    HistorialTurnosCompletadosComponent
+    HistorialTurnosCompletadosComponent,
+    PrimeraLetraUppercasePipe,
+    EstadoColorDirective,
+    HistorialTurnosAdminComponent,
+    GraficosComponent,
+    InformesComponent
   ],
   imports: [
     BrowserModule,

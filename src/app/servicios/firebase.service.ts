@@ -65,6 +65,10 @@ export class FirebaseService {
     })
   }
 
+  traerProfesionalesHabilitados(){
+      return this.firestore.collection('usuarios', ref => {return ref.where('habilitado','==',true)}).valueChanges()
+  }
+
   traerTurnosLibres(coleccion){
      return this.firestore.collection(coleccion+ ' turnos', ref => {return ref.where('ocupado','==',false)}).valueChanges()
   }
@@ -75,6 +79,10 @@ export class FirebaseService {
 
   traerTurnosAceptados(coleccion){
     return this.firestore.collection(coleccion+ ' turnos', ref => {return ref.where('estado','==','aceptado')}).valueChanges()
+ }
+
+ traerHistorialTurnos(){
+  return this.firestore.collection('turnos').valueChanges()
  }
 
  traerHistorialProfesional(coleccion){
@@ -148,6 +156,58 @@ traerTurnosPaciente(coleccion){
     this.firestore.collection(profesional+' turnos').doc(fecha).update({comentario: comentario, puntaje: puntaje});
   }
 
+  agregarDatosGenericos(documento,edad,temperatura,presion){
+    this.firestore.collection('turnos').doc(documento).update({edad: edad, temperatura: temperatura, presion: presion});
+  }
+
+  agregarDatosGenericosPaciente(paciente,fecha,edad,temperatura,presion){
+    this.firestore.collection('turnos ' + paciente).doc(fecha).update({edad: edad, temperatura: temperatura, presion: presion});
+  }
+
+  agregarDatosGenericosProfesional(profesional,fecha,edad,temperatura,presion){
+    this.firestore.collection(profesional + ' turnos' ).doc(fecha).update({edad: edad, temperatura: temperatura, presion: presion});
+  }
+
+  agregarCamposExtra(documento,campoExtraUno,datoExtraUno,campoExtraDos?,datoExtraDos?,campoExtraTres?,datoExtraTres?){
+    if(typeof campoExtraDos === 'undefined' || typeof datoExtraDos === 'undefined'){
+      this.firestore.collection('turnos').doc(documento).update({campoExtraUno: campoExtraUno, datoExtraUno : datoExtraUno});
+    } else if (typeof campoExtraDos !== 'undefined' || typeof datoExtraDos !== 'undefined') {
+        if (typeof campoExtraTres !== 'undefined' || typeof datoExtraTres !== 'undefined') {
+          this.firestore.collection('turnos').doc(documento).update({campoExtraUno: campoExtraUno, datoExtraUno : datoExtraUno, campoExtraDos: campoExtraDos, datoExtraDos: datoExtraDos, campoExtraTres: campoExtraTres, datoExtraTres:datoExtraTres});
+      } else {
+          this.firestore.collection('turnos').doc(documento).update({campoExtraUno: campoExtraUno, datoExtraUno : datoExtraUno, campoExtraDos: campoExtraDos, datoExtraDos: datoExtraDos});
+      }    
+    } 
+    
+  }
+
+  agregarCamposExtraPaciente(paciente,fecha,campoExtraUno,datoExtraUno,campoExtraDos?,datoExtraDos?,campoExtraTres?,datoExtraTres?){
+    if(typeof campoExtraDos === 'undefined' || typeof datoExtraDos === 'undefined'){
+      this.firestore.collection('turnos ' + paciente).doc(fecha).update({campoExtraUno: campoExtraUno, datoExtraUno : datoExtraUno});
+    } else if (typeof campoExtraDos !== 'undefined' || typeof datoExtraDos !== 'undefined') {
+      if (typeof campoExtraTres !== 'undefined' || typeof datoExtraTres !== 'undefined') {
+        this.firestore.collection('turnos ' + paciente).doc(fecha).update({campoExtraUno: campoExtraUno, datoExtraUno : datoExtraUno, campoExtraDos: campoExtraDos, datoExtraDos: datoExtraDos, campoExtraTres: campoExtraTres, datoExtraTres:datoExtraTres});
+    } else {
+      this.firestore.collection('turnos ' + paciente).doc(fecha).update({campoExtraUno: campoExtraUno, datoExtraUno : datoExtraUno, campoExtraDos: campoExtraDos, datoExtraDos: datoExtraDos});
+    }    
+  } 
+  
+}
+
+  agregarCamposExtraProfesional(profesional,fecha,campoExtraUno,datoExtraUno,campoExtraDos?,datoExtraDos?,campoExtraTres?,datoExtraTres?){
+    if(typeof campoExtraDos === 'undefined' || typeof datoExtraDos === 'undefined'){
+      this.firestore.collection(profesional + ' turnos').doc(fecha).update({campoExtraUno: campoExtraUno, datoExtraUno : datoExtraUno});
+    } else if (typeof campoExtraDos !== 'undefined' || typeof datoExtraDos !== 'undefined') {
+      if (typeof campoExtraTres !== 'undefined' || typeof datoExtraTres !== 'undefined') {
+        this.firestore.collection(profesional + ' turnos').doc(fecha).update({campoExtraUno: campoExtraUno, datoExtraUno : datoExtraUno, campoExtraDos: campoExtraDos, datoExtraDos: datoExtraDos, campoExtraTres: campoExtraTres, datoExtraTres:datoExtraTres});
+    } else {
+      this.firestore.collection(profesional + ' turnos').doc(fecha).update({campoExtraUno: campoExtraUno, datoExtraUno : datoExtraUno, campoExtraDos: campoExtraDos, datoExtraDos: datoExtraDos});
+    }    
+  } 
+  
+}
+
+
   resetearTurno(coleccion,documento){
     this.firestore.collection(coleccion+ ' turnos').doc(documento).set({ocupado: false, fecha: documento});
   }
@@ -157,7 +217,7 @@ traerTurnosPaciente(coleccion){
   }
 
   agregarHorarios(coleccion,documento,fecha){
-    this.firestore.collection(coleccion+' turnos').doc(documento).set({ocupado: false, fecha: fecha});
+    this.firestore.collection(coleccion+' turnos').doc(documento).set({ocupado: false, fecha: fecha},{ merge: true });
   }
 
   

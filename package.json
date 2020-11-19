@@ -27,13 +27,17 @@
     "@ng-bootstrap/ng-bootstrap": "^7.0.0",
     "bootstrap": "^4.5.2",
     "express": "^4.17.1",
+    "file-saver": "^2.0.2",
     "firebase": "^7.22.1",
+    "highcharts": "^8.2.2",
     "ngx-chips": "^2.2.1",
     "ngx-toastr": "^13.1.0",
     "path": "^0.12.7",
+    "pdfmake": "^0.1.68",
     "rxjs": "~6.6.3",
     "tslib": "^2.0.0",
     "typescript": "~4.0.3",
+    "xlsx": "^0.16.8",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {

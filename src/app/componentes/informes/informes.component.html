@@ -1,0 +1,14 @@
+<div id="main-head" style="text-align:center" class="container">
+
+    <select [(ngModel)]="opcionInforme" class="form-control col mx-1" name="opcionInforme" (change)="seleccionarOpcion(opcionInforme)">
+        <option [ngValue]="null" [disabled]="true" >Seleccione especialidad</option>
+        <option value="opPorEspec">Cantidad de operaciones por especialidad</option>
+        <option value="turPorDia">Cantidad de turnos por dia de la semana</option>
+        <option value="turPorMedico">Cantidad de turnos por medico en los ultimos 7 dias</option>
+        <option value="diasPorMedico">Cantidad de dias trabajados por medico en los ultimos 7 dias</option>
+    </select>
+
+    <!-- <button type="button" class="btn-informes" (click)="turnosPorEspecialidad()">Cantidad de operaciones por especialidad</button> -->
+
+    <app-graficos class="col-12" [grafico]="grafico" (descargar)="agarrarDescargar($event)"></app-graficos>
+</div>

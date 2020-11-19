@@ -1,0 +1,13 @@
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+  name: 'primeraLetraUppercase'
+})
+export class PrimeraLetraUppercasePipe implements PipeTransform {
+
+  transform(value: string, ...args: unknown[]): unknown {
+    value = value.charAt(0).toUpperCase() + value.slice(1);
+    return value;
+  }
+
+}

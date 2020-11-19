@@ -3,12 +3,11 @@
 
       <h3 class="mt-5" *ngIf="turnosAceptados.length == 0">No hay turnos pendientes</h3>
   
-      <div class="card text-white bg-info m-3" style="max-width: 18rem;" *ngFor="let turno of turnosAceptados"
-        [ngClass]="{'bg-info': turno.estado=='pendiente','bg-danger': turno.estado == 'cancelado','bg-success': turno.estado == 'aceptado'}">
-        <div class="card-header text-center"><span class="font-weight-bold">Paciente: </span>{{turno.paciente}}</div>
+      <div class="card text-white m-3" style="max-width: 18rem;" *ngFor="let turno of turnosAceptados" [EstadoColor]=turno.estado>
+        <div class="card-header text-center"><span class="font-weight-bold">Paciente: </span>{{turno.paciente |primeraLetraUppercase}}</div>
         <div class="card-body">
-          <p class="card-text"><span class="font-weight-bold">Estado: </span>{{turno.estado}}</p>
-          <p class="card-text"><span class="font-weight-bold">Especialidad: </span>{{turno.especialidad}}</p>
+          <p class="card-text"><span class="font-weight-bold">Estado: </span>{{turno.estado |primeraLetraUppercase}}</p>
+          <p class="card-text"><span class="font-weight-bold">Especialidad: </span>{{turno.especialidad |primeraLetraUppercase}}</p>
           <p class="card-text"><span class="font-weight-bold">Fecha: </span>{{turno.fecha}}</p>
   
           <div class="form-group m-3 d-flex justify-content-center">
@@ -35,7 +34,7 @@
 
                 <div class="form-group">
                   <label>Temperatura corporal</label>
-                  <input type="text" class="form-control" placeholder="Temperatura corporal" [(ngModel)]="edadPaciente" name="edadPaciente">
+                  <input type="text" class="form-control" placeholder="Temperatura corporal" [(ngModel)]="temperaturaPaciente" name="temperaturaPaciente">
                 </div>
 
                 <div class="form-group">
@@ -54,28 +53,28 @@
 
                   <div class="form-row " *ngIf="campos > 0">
                     <div class="col m-3">
-                      <input type="text" class="form-control" placeholder="Nombre Campo" >
+                      <input type="text" class="form-control" placeholder="Nombre Campo" [(ngModel)]="campoExtraUno" name="campoExtraUno">
                     </div>
                     <div class="col m-3">
-                      <input type="text" class="form-control" placeholder="Valor Campo" >
+                      <input type="text" class="form-control" placeholder="Valor Campo" [(ngModel)]="datoExtraUno" name="datoExtraUno">
                     </div>
                   </div>
 
                   <div class="form-row " *ngIf="campos > 1">
                     <div class="col m-3">
-                      <input type="text" class="form-control" placeholder="Nombre Campo" >
+                      <input type="text" class="form-control" placeholder="Nombre Campo" [(ngModel)]="campoExtraDos" name="campoExtraDos">
                     </div>
                     <div class="col m-3">
-                      <input type="text" class="form-control" placeholder="Valor Campo" >
+                      <input type="text" class="form-control" placeholder="Valor Campo" [(ngModel)]="datoExtraDos" name="datoExtraDos">
                     </div>
                   </div>
 
                   <div class="form-row " *ngIf="campos > 2">
                     <div class="col m-3">
-                      <input type="text" class="form-control" placeholder="Nombre Campo" >
+                      <input type="text" class="form-control" placeholder="Nombre Campo" [(ngModel)]="campoExtraTres" name="campoExtraTres">
                     </div>
                     <div class="col m-3">
-                      <input type="text" class="form-control" placeholder="Valor Campo" >
+                      <input type="text" class="form-control" placeholder="Valor Campo" [(ngModel)]="datoExtraTres" name="datoExtraTres">
                     </div>
                   </div>
 

@@ -48,6 +48,11 @@ export class HistorialTurnosComponent implements OnInit {
     
   }
 
+  reset(){
+    this.currentRate = null;
+    this.comentario = ''
+  }
+
   
 
 

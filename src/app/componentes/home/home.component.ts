@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
 
   currentUser:any;
   mailUser:any;
+  fotoPerfil:number = 1
 
   compSeleccionado:string;
 

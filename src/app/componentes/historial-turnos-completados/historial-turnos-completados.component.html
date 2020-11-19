@@ -1,13 +1,12 @@
 <div class="container ">
     <div class="row d-flex justify-content-center">
-
+      <!--[ngClass]="{'bg-info': turno.estado=='pendiente','bg-danger': turno.estado == 'cancelado', 'bg-success': turno.estado == 'completado'}"  -->
       <h3 class="mt-5" *ngIf="historialTurnos.length == 0">No hay turnos en el historial</h3>
   
-      <div class="card text-white bg-info m-3" style="max-width: 18rem;" *ngFor="let turno of historialTurnos"
-        [ngClass]="{'bg-info': turno.estado=='pendiente','bg-danger': turno.estado == 'cancelado','bg-success': turno.estado == 'completado'}">
+      <div class="card text-white m-3" style="max-width: 18rem;" *ngFor="let turno of historialTurnos"  [EstadoColor]=turno.estado>
         <div class="card-header text-center"><span class="font-weight-bold">Paciente: </span>{{turno.paciente}}</div>
         <div class="card-body">
-          <p class="card-text"><span class="font-weight-bold">Estado: </span>{{turno.estado}}</p>
+          <p class="card-text"><span class="font-weight-bold">Estado: </span>{{turno.estado | primeraLetraUppercase}}</p>
           <p class="card-text"><span class="font-weight-bold">Especialidad: </span>{{turno.especialidad}}</p>
           <p class="card-text"><span class="font-weight-bold">Fecha atendido: </span>{{turno.fecha}} </p>
           <p class="card-text"><span class="font-weight-bold">Reseña: </span>{{turno.resenia}}</p>
@@ -26,33 +25,24 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
+
           <div class="modal-body">
-            <!-- <form>
-                 <div class="form-group">
-                  <label for="exampleFormControlInput1">Email address</label>
-                  <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-                </div>
-                <div class="form-group">
-                  <label for="exampleFormControlSelect1">Example select</label>
-                  <select class="form-control" id="exampleFormControlSelect1">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                  </select>
-                </div> 
-                <div class="form-group">
-                  <label for="resenia">Reseña</label>
-                  <textarea class="form-control" id="resenia" rows="3" [(ngModel)]="resenia" name="resenia"></textarea>
-                </div>
-              </form> -->
+
+              <p class="form-control mt-3" *ngIf="turno.edad"><span class="font-weight-bold">Edad: </span>{{turno.edad}}</p>
+              <p class="form-control mt-3" *ngIf="turno.temperatura"><span class="font-weight-bold">Temperatura: </span>{{turno.temperatura}}</p>
+              <p class="form-control mt-3" *ngIf="turno.presion"><span class="font-weight-bold">Presion: </span>{{turno.presion}}</p>
+
+              <p class="form-control mt-3" *ngIf="turno.campoExtraUno"><span class="font-weight-bold">{{turno.campoExtraUno | primeraLetraUppercase}}: </span>{{turno.datoExtraUno}}</p>
+              <p class="form-control mt-3" *ngIf="turno.campoExtraDos"><span class="font-weight-bold">{{turno.campoExtraDos | primeraLetraUppercase}}: </span>{{turno.datoExtraDos}}</p>
+              <p class="form-control mt-3" *ngIf="turno.campoExtraTres"><span class="font-weight-bold">{{turno.campoExtraTres | primeraLetraUppercase}}: </span>{{turno.datoExtraTres}}</p>
               <h3>Comentario paciente:</h3>
-              <p>{{turno.comentario}}</p>
+              <p>{{turno.comentario | primeraLetraUppercase}}</p>
           </div>
+
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-success" (click)="modal.dismiss()">Cerrar</button>
           </div>
+
         </ng-template>
   
       </div>
